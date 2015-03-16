@@ -47,14 +47,6 @@ msg_error()
 	fi
 }
 
-# Deletes whole currently cursor line 
-del_line() 
-{
-	# TODO: Some faster way 
-	echo -ne "\r"
-	for (( i=1; i<=$(tput cols); i++ )); do echo -n " "; done
-	echo -e "\r"
-}
 
 # Execute command but do not print stdout and stderr messages
 no_output() 
