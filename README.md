@@ -8,3 +8,9 @@ Installation
 `cd fantastixus`
 
 `sudo ./init.sh`
+
+
+Configuration files
+-------------------
+
+See https://github.com/fantastic001/dotfiles 
