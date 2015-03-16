@@ -1,0 +1,29 @@
+#!/bin/sh
+
+. /home/functions
+
+msg_info "Installing build dependencies..."
+
+no_output apt-get install -y build-essential autoconf automake libtool gperf xmlto dpatch fakeroot git git-core debhelper
+
+no_output apt-get install -y libx11-dev libxinerama-dev libxrandr-dev libpango1.0-dev libimlib2-dev libgtk2.0-dev libxcb-shm0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-shape0-dev libcairo2-dev libxcb-xinerama0-dev liblua5.1-filesystem0 liblua5.1-logging libdirectfb-dev libxt-dev libx11-xcb-dev
+
+apt-get install -y lua liblua-dev
+apt-get build-dep -y awesome
+
+BUILDDIR="/tmp/awesome-git/"
+
+mkdir -p $BUILDDIR
+cd $BUILDDIR
+
+msg_info "Cloning repository"
+no_output git clone https://github.com/awesomeWM/awesome.git .
+
+msg_info "Starting build"
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local/
+
+make
+
+msg_info "Installing"
+make install 
