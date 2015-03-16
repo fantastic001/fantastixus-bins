@@ -1,7 +1,7 @@
 #!/bin/sh
 
-cp -r bin /home/bin/ 
-cp -r sbin /home/sbin/ 
+cp -r bin /home/
+cp -r sbin /home/
 cp functions /home/functions 
 
 echo "Initialization finished"
