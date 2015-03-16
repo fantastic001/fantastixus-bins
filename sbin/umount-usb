@@ -1,0 +1,7 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+umount /media/usb

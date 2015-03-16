@@ -1,0 +1,20 @@
+#!/bin/sh
+
+case $1 in 
+	start) 
+		systemctl start nginx
+		systemctl start php-fpm@5.5.service
+		systemctl start mysqld
+		;; 
+	stop) 
+		systemctl stop nginx
+		systemctl stop php-fpm@5.5.service
+		systemctl stop mysqld
+		;; 
+	restart) 
+		systemctl restart nginx
+		systemctl restart php-fpm@5.5.service
+		systemctl restart mysqld
+		;; 
+	*) echo "Usage: $0 start|stop|restart" ;; 
+esac

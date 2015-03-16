@@ -1,0 +1,40 @@
+#!/bin/sh
+
+
+cd /data/Programming/Projects/Tasks/C++/
+#echo "Please do not use spaces in project name"
+#echo -n "Entar project name "
+#read PROJECT
+
+PROJECT="$1"
+
+if [ -d $PROJECT ]
+then
+	cd $PROJECT
+else
+	mkdir $PROJECT
+	cd $PROJECT
+	echo "#include <iostream>" >> main.cpp
+	echo "#include <cstdlib>" >> main.cpp
+	echo "#include <string>" >> main.cpp
+	echo >> main.cpp
+	echo "using namespace std;" >> main.cpp
+	echo >> main.cpp
+	echo -e "int main(int argc, char* argv[]) {\n\n\treturn 0;\n}" >> main.cpp
+fi
+
+vim main.cpp
+
+g++ -o $PROJECT main.cpp
+
+if [ $? = 0 ]; then 
+	echo "INPUT:"
+	sleep 1 
+	INPUT="/tmp/c++-task-$PROJECT-$(date +%S%N)"
+	vim $INPUT
+	DATE="$(date +%S.%N)"
+	./$PROJECT < $INPUT
+	rm $INPUT
+	echo -e "\nStart time: $DATE"
+	echo "End time: $(date +%S.%N)"
+fi

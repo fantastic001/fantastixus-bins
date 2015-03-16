@@ -1,0 +1,6 @@
+#!/bin/sh
+
+while :; do 
+	echo "$(date) | $(battery)"
+	sleep 1 
+done 

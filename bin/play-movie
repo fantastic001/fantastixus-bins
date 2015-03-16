@@ -1,0 +1,38 @@
+#!/bin/sh
+
+. /home/functions
+
+MPLAYER_CMD="mplayer"
+SUB=""
+MOVIE=""
+if [ -f *.avi ]; then 
+	MOVIE="*.avi"
+elif [ -f *.mkv ]; then 
+	MOVIE="*.mkv"
+elif [ -f *.mp4 ]; then 
+	MOVIE="*.mp4"
+fi
+
+if [ -f *.srt ]; then SUB="-sub *.srt"; fi 
+
+
+if no_output which mplayer2; then 
+	MPLAYER_CMD="mplayer2"
+	msg_info "Playing movie with command: $MPLAYER_CMD $MOVIE $SUB ...."
+	$MPLAYER_CMD $MOVIE $SUB \
+		-noass \
+		-subfont-text-scale 5 \
+		-sub-bg-color 0 \
+		-sub-bg-alpha 255 \
+		-subpos 94 \
+		-subcp cp1250 
+		#-ass -ass-font-scale 1.5 
+else
+	msg_info "Playing movie with command: $MPLAYER_CMD $MOVIE $SUB"
+	$MPLAYER_CMD $MOVIE $SUB \
+		-subfont-text-scale 3 \
+		-sub-bg-color 0 \
+		-sub-bg-alpha 70 \
+		-subpos 94 \
+		-subcp cp1250 
+fi

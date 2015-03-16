@@ -1,0 +1,15 @@
+#!/bin/bash
+cd
+urxvt -e tmux & 
+sleep 1
+tmux new-window 
+tmux new-window
+tmux new-window
+tmux new-window
+tmux new-window
+tmux new-window irssi 
+tmux new-window htop 
+tmux new-window "ranger Uputstva /data /packages ."
+tmux new-window su
+tmux new-window su 
+tmux new-window su 

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+cd /me
+
+DATE=$(date +%Y-%m-%d)
+
+SAVE_DIR="/media/backup"
+
+tar -cvJpPf "$SAVE_DIR/save-${DATE}.tar.xz" . --exclude save --exclude opt --exclude home

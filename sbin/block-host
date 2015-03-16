@@ -1,0 +1,10 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+if ask_question "Do you realy want to block this host ? $1 "
+then 
+	echo "127.0.0.1 $1" >> /etc/hosts
+fi

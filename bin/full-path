@@ -1,0 +1,16 @@
+#!/bin/sh
+
+LS_ARGS="-d"
+if [ "$1" = "--help" ] 
+then 
+	echo "
+
+Usage: $0  arg
+Show full path of any file or directory 
+	
+	"
+	exit 1 
+fi
+
+FILE="$1"
+echo ""$(pwd)"/"$(ls $LS_ARGS "$FILE")""

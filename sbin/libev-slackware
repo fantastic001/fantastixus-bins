@@ -1,0 +1,51 @@
+#!/bin/sh
+
+. /home/functions
+
+only_root
+
+if [ $(get_distro) != "slackware" ]; then 
+	msg_error "Only on Slackware based systems."
+fi
+
+VERSION=3.52
+
+if [ -z $ARCH ]; then 
+	msg_warn "ARCH variable is not set, using $(uname -m)...."
+	ARCH=$(uname -m)
+fi
+
+cd /usr/src/
+
+if [ -d libev ] 
+then 
+	msg_warn "/usr/src/libev/ exists, this script will remove that"
+	echo "Do you want to continue ? (y/n) "
+	read CONTINUE
+	if [ $CONTINUE = "n" ] 
+	then 
+		exit 0 
+	fi
+	rm -rf libev
+fi
+mkdir libev
+cd libev
+
+wget https://bitbucket.org/jfsantos/slackbuilds/raw/60b4518c622b/libev/libev.SlackBuild
+wget https://bitbucket.org/jfsantos/slackbuilds/raw/60b4518c622b/libev/libev.info
+wget https://bitbucket.org/jfsantos/slackbuilds/raw/60b4518c622b/libev/slack-desc
+wget http://dist.schmorp.de/libev/Attic/libev-$VERSION.tar.gz
+rm -rf /tmp/libev-$VERSION-$ARCH-*.txz
+
+chmod +x libev.SlackBuild
+./libev.SlackBuild
+
+if [ -f /tmp/libev-$VERSION-$ARCH-*.txz ] 
+then 
+	echo 
+	msg_info "Installing libev...." 
+	echo 
+	installpkg /tmp/libev-$VERSION-$ARCH-*.t*z
+else
+	msg_error "Package not found for installing. You must install package manualy."
+fi

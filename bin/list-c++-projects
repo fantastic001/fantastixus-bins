@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo "Do you want to list files in project directories?"
+read LISTP
+echo ""
+if [ $LISTP = "y" ]
+then
+	cd /data/Programming/Projects/Tasks/C++
+	ls
+	exit 
+fi
+
+ls /data/Programming/Projects/Tasks/C++ | sort

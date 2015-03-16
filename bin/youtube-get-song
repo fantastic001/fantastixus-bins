@@ -1,0 +1,19 @@
+#!/bin/sh
+
+. /home/functions
+
+if [ $1 = "--help" ]; then 
+	echo "Usage: $0 url title"
+	echo "title must be without extension"
+	exit 0 
+fi
+
+url="$1"
+title="$2" 
+filename="${2}.mp4"
+
+youtube-dl $1 -o "$filename" 
+
+mp42mp3 "$filename" 
+
+rm "$filename"

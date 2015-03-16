@@ -1,0 +1,10 @@
+#!/bin/bash
+
+parse() 
+{
+	grep ^Playing $1
+}
+
+cd /data/Music
+
+mplayer -loop 0 */*.mp3 2>/dev/null | parse

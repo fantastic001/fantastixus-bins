@@ -1,0 +1,26 @@
+#!/bin/sh
+
+
+
+echo -n "Enter theme path "
+read THEME
+
+echo -n "Extension of archive (e.g gz)"
+read THEME_EXT
+
+case $THEME_EXT in 
+	*gz) TAR_CMD="tar -xvf" ;;
+	*bz2) TAR_CMD="tar -xvjf" ;;
+	*xz) TAR_CMD="tar -xvJf" ;;
+	*) echo "Invalid extension, exiting"; exit 1 ;;
+	esac
+
+$TAR_CMD  "$THEME" -C /home/$(whoami)/.themes/
+
+echo -n "Do you want to change theme using lxappearance? "
+read CHANGE_THEME
+
+if [ $CHANGE_THEME = "y" ] 
+then 
+	lxappearance
+fi

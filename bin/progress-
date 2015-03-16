@@ -1,0 +1,61 @@
+#!/bin/sh
+
+MAX=100
+FILE="log"
+INTERVAL=1
+
+COMMAND="echo \"$(($(wc -l $FILE | awk '{print $1}') * 100 / ${MAX}))%\""
+
+do_help() 
+{
+	echo "
+	
+
+	usage $0 [-m num] [-f file] [-i num] 
+
+	-m num		define max value for progress
+	-f file		define file for reading
+	-i num		define interval for sleeping
+
+	Examples: 
+	when you want to extract some archive and to view progress of it 
+	you first must to know max value of file for storying output 
+	e.g.  tar -tvf archive.tar.gz | wc -l
+	in this example max value will be 150
+
+	then you must extract that archive and redirect output to any file 
+	e.g.  tar -xvf archive.tar.gz > output.log
+
+	then run $0 
+	$0 -m 150 -f output.log 
+
+	if you want to define interval run 
+	$0 -m 150 -f output.log -i 2
+	"
+	exit 1 
+}
+
+
+case $1 in 
+	--help) do_help ;; 
+	-m) shift ; MAX=$1; shift ;;
+	-f) shift; FILE=$1 ; shift ;; 
+	-i) shift; INTERVAL=$1; shift ;; 
+	*) echo "WRONG!!!"; do_help; 
+esac
+
+while :
+do
+	if [ $($COMMAND) = "100%" ] 
+	then 
+		echo "100%....COMPLETE!!!"
+	fi
+
+	O=$($COMMAND)
+	echo -n "${O}"
+	for (( i=0; i < $(($(echo $O | wc -m) - 1)); i++ ))
+	do
+		echo "\b"
+	done
+	sleep $INTERVAL
+done

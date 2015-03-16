@@ -1,0 +1,13 @@
+#!/bin/sh 
+
+. /home/functions 
+
+only_root 
+
+echo "Select your gcc profile"
+echo
+gcc-config -l
+read PROFILE_NUMBER
+gcc-config $PROFILE_NUMBER
+env-update
+source /etc/profile

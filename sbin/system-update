@@ -1,0 +1,40 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+
+if [ $(get_distro) != "gentoo" ] 
+then 
+	msg_error "Only on Gentoo based systems."
+fi
+emerge --sync
+#cave sync 
+
+# Update overlays 
+layman -S 
+emerge --regen
+# Update eix 
+eix-update
+
+#/home/sbin/plop-sync
+
+#echo -n "Do you want to upgrade portage? "
+#read PORTAGE_UPGRADE
+#if [ $PORTAGE_UPGRADE = "y" ] 
+#then 
+#	#emerge portage
+#	cave -x resolve portage
+#fi
+#echo "Do you want to upgrade paludis? "
+#read UPGRADE_PALUDIS
+#if [ $UPGRADE_PALUDIS = "y" ] 
+#then 
+#	cave -x resolve paludis
+#fi
+echo "" >> /var/mylogs/portage.log
+#echo "" >> /var/mylogs/paludis.log
+#date >> /var/mylogs/portage.log
+DATE=$(date)
+echo "$DATE Updated packages..." >> /var/mylogs/portage.log

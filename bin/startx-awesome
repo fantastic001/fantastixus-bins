@@ -1,0 +1,7 @@
+#!/bin/bash
+
+rm .Xdefaults
+
+ln -s .Xdefaults-/awesome .Xdefaults
+echo "awesome" > .currentwm
+awesome

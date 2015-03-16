@@ -1,0 +1,32 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+if [ $1 = "--help" ]; then 
+	cat << EOF
+
+Usage: $0 dir 
+
+	dir: directory containing mp3 files 
+
+EOF
+	exit 0 
+fi
+
+TMP_AUDIO_DIR="/tmp/cdburn-audio-$(date +%s)"
+
+if [ -d "$1" ]; then 
+	if ! mkdir $TMP_AUDIO_DIR; then 
+		msg_error "Cannot create temporary directory."
+	fi
+	for song in $1/*.mp3; do
+		msg_info "Generating $song"
+		ffmpeg -i "$song" -acodec pcm_s16le -ac 2 -ar 44100 "$TMP_AUDIO_DIR/$( echo "${song}.wav" | sed "s|/|_|g")"
+	done
+	cdrecord -v -pad speed=1 -dao -audio -swab $TMP_AUDIO_DIR/*.wav
+	rm -rf $TMP_AUDIO_DIR
+else 
+	msg_error "Direcotry does not exists!" 
+fi

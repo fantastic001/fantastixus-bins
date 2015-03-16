@@ -1,0 +1,78 @@
+#!/bin/sh
+
+start_x() {
+
+	#Set mouse speed to 0 
+	exec xset m 0 &
+	
+	#Start touchpad daemon
+	syndaemon -t -k -i 2 -d & 
+	synclient TapButton1=1 TapButton2=3 TapButton3=2
+	
+	#xbindkeys
+	xbindkeys
+	
+	#Clipboard
+	autocutsel -selection PRIMARY -fork &
+	
+	#Play Startup sound
+	#aplay /me/data/Sounds/startup.wav &
+	
+	#Numlock turn on 
+	numlockx on
+	
+	#layouts 
+	setxkbmap -option grp:lwin_switch us,hr
+	
+	#compositing
+	#xcompmgr -cCfF -r25 -o.20 -t-8 -D4 &
+	
+	#Start conky
+	#conky 
+	
+	#Xmodmap
+	xmodmap ~/.Xmodmap &
+	
+	#System Check
+	#/home/bin/check-system &
+	
+	#Start Clipboard manager
+	#sclip &
+	
+	# Set up a background image
+	feh --bg-scale .config/awesome/background.jpg
+	
+	# Set window name
+	wmname LG3D
+
+	# Startup default starting apps 
+	if [ ! -x ~/.startup ]; then 
+		chmod +x ~/.startup
+		~/.startup &
+	else 
+		~/.startup &
+	fi
+
+	#Start your own window manager
+	#if [ ! -z $(which awesome 2>/dev/null) ] 
+	#then 
+		#exec qtile # Waiting stable version
+		exec awesome
+	#else
+		#exec startx-fluxbox
+	#fi
+	#firefox
+	#exec startx-fusion
+	#exec startxfce4
+	#exec razor-session
+	
+}
+
+. /etc/profile
+
+export EDITOR="vim"
+export BROWSER="/usr/bin/firefox"
+export GTK2_RC_FILES=~/.gtkrc-2.0
+
+start_x
+

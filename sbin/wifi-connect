@@ -1,0 +1,97 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+INTERFACE=eth1
+
+# Select default wifi connection manager
+# 0: iwconfig and wpa_supplicant
+# 1: NetworkManager
+WIFI_PROGRAM=0
+
+get_help() 
+{
+	cat << EOF 
+Usage: $0 [--list] [--type 0|1] [-i|--interface iface] [--essid essid] [--password pass]
+	
+	Options: 
+		--list 			Get list of available networks 
+		--type 0|1 		Select type of connection manager. 0 for wireless-tools and 1 for networkmanager (default: 0)
+		-i|--interface iface	Specify interface to be used (default: eth0) 
+		--essid essid		Specify essid 
+		--password pass		Specify password if it's needed 
+
+EOF
+}
+
+wifi_list() 
+{
+	if [ $WIFI_PROGRAM = 0 ]; then 
+		iwlist $INTERFACE scan | grep "ESSID" 
+	else
+		nmcli dev wifi list;
+	fi
+}
+
+wifi_connect() 
+{
+	if [ $WIFI_PROGRAM = 0 ]; then 
+		iwconfig $INTERFACE essid "$ESSID"
+		dhcpcd $INTERFACE -L4
+		#echo "To disconnect just type " TODO What to type ???? 
+	else 
+		nmcli dev wifi con "$ESSID" 
+	fi
+}
+
+wifi_connect_wpa() 
+{
+	if [ $WIFI_PROGRAM = 0 ]; then 
+	 	wpa_passphrase "$ESSID" "$WPAKEY" > /etc/wpa_supplicant.conf
+	   	#dhcpcd $INTERFACE
+		msg_info "Connecting to network..."
+		msg_info "To get IP adress do dhcpcd $INTERFACE as root in another terminal"
+		sleep 1
+		wpa_supplicant -c /etc/wpa_supplicant.conf -i $INTERFACE -Dwext -B 
+		dhcpcd $INTERFACE -L4
+		kill $(cat /var/run/dhcpcd-$INTERFACE.pid)
+	
+	else 	
+		nmcli dev wifi con "$ESSID" password $WPAKEY 
+	fi
+}
+
+CONNECT=0
+
+# Reading options 
+while [ ! -z $1 ]; do
+	echo "___________________"
+	case $1 in
+		--help | -h) get_help; exit 0 ;; 
+		--type) echo "Parsing program"; WIFI_PROGRAM=$2; shift 2 ;;
+		-i | --interface) echo "Parsing interface"; INTERFACE=$2; shift 2 ;; 
+		--essid) echo "Parsing essid."; CONNECT=1; ESSID="$2"; shift 2 ;; 
+		--password) echo "Parsing WPAKEY."; WPAKEY="$2"; shift 2 ;;
+		--list)  
+			echo "Parsing list parameter." 
+			if [ $CONNECT = 1 ]; then 
+				msg_error "You cannot use list mode and connect mode. "
+			fi
+			wifi_list 
+			shift 
+			;;
+		*) get_help; exit 1 ;;
+	esac
+done
+
+if [ $CONNECT = 1 ]; then 
+
+	if [ ! -z $WPAKEY ]; then 
+		wifi_connect_wpa 
+	else
+		wifi_connect
+	fi
+fi
+

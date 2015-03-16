@@ -1,0 +1,12 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+
+echo "ROOT password of PC"
+
+scp -r -P 45791 /home/* root@$(ip-public):/home/
+
+echo "You must manualy set permissions to your normal user on PC."

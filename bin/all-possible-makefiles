@@ -1,0 +1,2 @@
+#!/bin/sh
+find . -name Makefile.am | sed "s/\.am//g" | fmt

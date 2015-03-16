@@ -1,0 +1,32 @@
+#!/bin/sh
+
+if [ $1 = "--help" ]; then 
+	
+cat << EOF 
+
+Usage: $0 [package] [Test class name] [list of files for compiling, separated by space]
+
+RUN THIS SCRIPT IN THE DIRECTORY WHERE IS PLACED YOUR PACKAGE DIR!
+
+Example: $0 mypackage "MyClassTest" mypackage/MyClassTest.java 
+
+EOF
+
+	exit 0 
+fi
+
+export CLASSPATH=".:..:/usr/share/junit-4/lib/junit.jar:/usr/share/hamcrest-core-1.3/lib/hamcrest-core.jar"
+PACKAGE=$1 
+TEST=$2 
+FILES="${*:3}"
+#echo "Current path: $(pwd)"
+#javac $@ 
+#java $(basename $1 .java)
+javac $FILES
+java org.junit.runner.JUnitCore "$PACKAGE.$TEST"
+
+echo "Do you want to remove .class files? " 
+read ANS
+if [ $ANS = "y" ]; then 
+	rm $PACKAGE/*.class
+fi

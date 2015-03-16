@@ -1,0 +1,8 @@
+#!/bin/bash
+cd /home/user
+CURRENTWM=$(cat .currentwm)
+if [ $CURRENTWM = "fluxbox" ] 
+then 
+	echo "Finished , please press RETURN"
+	read p
+fi

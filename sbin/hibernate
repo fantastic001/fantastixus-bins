@@ -1,0 +1,12 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+killall firefox 
+mem-uncache
+
+#systemctl hibernate
+
+pm-hibernate 

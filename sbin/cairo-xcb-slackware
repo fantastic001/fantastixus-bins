@@ -1,0 +1,50 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+if [ $(get_distro) != "slackware" ]; then 
+	msg_error "Only on Slackware and its based distributions."
+fi
+
+CAIRO_VER=1.10.2
+ARCH=$(uname -m)
+
+cd /usr/src/
+
+if [ -d cairo ] 
+then 
+	echo "/usr/src/cairo/ exists, this script will remove that"
+	echo "Do you want to continue ? (y/n) "
+	read CONTINUE
+	if [ $CONTINUE = "n" ] 
+	then 
+		exit 0 
+	fi
+	rm -rf cairo 
+fi
+mkdir cairo 
+cd cairo 
+
+wget http://slackware.cs.utah.edu/pub/slackware/slackware-current/source/l/cairo/cairo-1.10.0-buggy_gradients.patch.gz 
+wget http://slackware.cs.utah.edu/pub/slackware/slackware-current/source/l/cairo/cairo-$CAIRO_VER.tar.xz
+wget http://slackware.cs.utah.edu/pub/slackware/slackware-current/source/l/cairo/cairo.SlackBuild
+
+sed -i "s#--build=\$ARCH-slackware-linux#--build=\$ARCH-slackware-linux --enable-xcb#g" cairo.SlackBuild
+rm -rf /tmp/cairo-$CAIRO_VER-$ARCH-*.txz
+
+chmod +x cairo.SlackBuild
+./cairo.SlackBuild
+
+if [ -f /tmp/cairo-$CAIRO_VER-$ARCH-*.txz ] 
+then 
+	echo 
+	echo "Installing cairo...." 
+	echo 
+	mv /tmp/cairo-$CAIRO_VER-$ARCH-*.txz /tmp/cairo-xcb-$CAIRO_VER-$ARCH-1.txz
+	installpkg /tmp/cairo-xcb-$CAIRO_VER-$ARCH-*.txz
+else
+	echo "Package not found for installing. You must install package manualy."
+	exit 1 
+fi

@@ -1,0 +1,47 @@
+#!/bin/sh
+
+USACO_ID="fantastic001"
+
+cd /data/Programming/Projects/Tasks/C++/
+#echo "Please do not use spaces in project name"
+#echo -n "Entar project name "
+#read PROJECT
+
+PROJECT="$1"
+
+if [ -d $PROJECT ]
+then
+	cd $PROJECT
+else
+	mkdir $PROJECT
+	cd $PROJECT
+	echo "/*" >> main.cpp
+	echo "ID: $USACO_ID" >> main.cpp 
+	echo "PROG: $PROJECT" >> main.cpp
+	echo "LANG: C++" >> main.cpp
+	echo "*/" >> main.cpp
+	echo "#include <cstdio>" >> main.cpp
+	echo >> main.cpp
+	echo "using namespace std;" >> main.cpp
+	echo >> main.cpp
+	echo -e "int main(int argc, char* argv[]) {\n\tFILE *fin = fopen(\"${PROJECT}.in\", \"r\");\n" >> main.cpp 
+	echo -e "\tFILE *fout = fopen(\"${PROJECT}.out\", \"w\");\n" >> main.cpp 
+	echo -e "\treturn 0;\n}" >> main.cpp
+fi
+
+vim main.cpp
+
+g++ -o $PROJECT main.cpp
+
+if [ $? = 0 ]; then 
+	echo "INPUT:"
+	sleep 1 
+	INPUT="${PROJECT}.in"
+	vim $INPUT
+	DATE="$(date +%S.%N)"
+	./$PROJECT 
+	cat "${PROJECT}.out"
+	rm $INPUT
+	echo -e "\nStart time: $DATE"
+	echo "End time: $(date +%S.%N)"
+fi

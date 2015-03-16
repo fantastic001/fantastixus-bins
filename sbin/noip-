@@ -1,0 +1,13 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+echo "Email For noip"
+read EMAIL_NOIP
+
+echo "Password" 
+read PASS_NOIP
+
+noip2 -C -U 5 -u $EMAIL_NOIP -p $PASS_NOIP

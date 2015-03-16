@@ -1,0 +1,13 @@
+#!/bin/sh
+
+. /home/functions
+
+if [ $(get_distro) = "gentoo" ] 
+then 
+	echo "$(expr $(grep "remaining capacity" /proc/acpi/battery/BAT0/state | awk '{print $3}') \* 100 / 4400)%"
+elif [ $(get_distro) = "archlinux" ] 
+then 
+	acpi -b | awk {'print $4'} | sed "s/,//g"
+else 
+	msg_error "Not supported on this Linux distribution. "
+fi

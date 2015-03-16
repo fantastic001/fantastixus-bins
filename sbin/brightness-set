@@ -1,0 +1,11 @@
+#!/bin/sh
+. /home/functions 
+
+only_root
+
+if [ $1 -lt 1 -o $1 -gt 15 ] 
+then 
+	msg_error "BAD ARGUMENT!!!"
+	exit 1 
+fi
+echo $1 > /sys/class/backlight/acpi_video0/brightness

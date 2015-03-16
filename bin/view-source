@@ -1,0 +1,85 @@
+#!/bin/sh
+
+cat << EOF
+
+This script is deprected and will be modified or removed. It has planned to make more powerful program for this. Please contact author on mail (stefan at lugons dot org) for more information. 
+
+You also can help author of that script to make better solution for that by sending mail. 
+
+Thanks in advance. 
+
+EOF
+#exit
+
+usage() 
+{
+	echo "
+	
+	NOTE: ONLY WORKS ON THE GENTOO LINUX AND ITS BASED DISTRIBUTIONS
+
+	Usage: $0 [-p any_pkg] [-C dir] [-f file_mgr] [-j] [-J]
+
+	--help 		Show this help message 
+	-p pkg_name	Set package name
+	-j		Extract archive in distfile which is bz2 
+	-J		Extract archive in distfile which is xz
+	-C dir		Specify output directory for extracting distfile (default is /tmp/view-source/pkg_name)
+	-f cmd		Specify file manager for using 
+
+	This script will extract archive and open it with specified file manager (default is ranger)
+	
+	"
+
+	exit 1 
+}
+
+if [ -z $1 ]; then 
+	usage
+fi
+
+FILE_MANAGER="ranger"
+TAR_CMD="tar -xf"
+PKG_NAME=""
+OUTPUT_DIR="/tmp/view-source/${PKG_NAME}"
+SUFFIX=".tar.gz"
+
+
+
+while [ ! -z $1 ]; do
+	echo "Reading arg $1"
+	case $1 in 
+	-p) shift; PKG_NAME=$1; shift
+	;;
+	-j)  SUFFIX=".tar.bz2"; TAR_CMD="tar -xjf"; shift ;;
+	-J)  SUFFIX=".tar.xz"; TAR_CMD="tar -xJf"; shift ;; 
+	-C) shift; OUTPUT_DIR=$1; shift ;; 
+	-f) shift; FILE_MANAGER=$1; shift ;;
+	*) usage ;;
+	esac
+done
+
+echo "File manager: $FILE_MANAGER"
+echo "Tar command: $TAR_CMD"
+echo "Selected package name: $PKG_NAME"
+echo "Output directory: $OUTPUT_DIR"
+echo "tar suffix: $SUFFIX"
+cd /usr/portage/distfiles
+
+if [ -r ${PKG_NAME}${SUFFIX} ] 
+then 
+	WORK=${PKG_NAME}${SUFFIX}
+else
+	echo "This package does not exists" 
+	echo "Try Following packages: "
+	echo ""
+	ls $PKG_NAME*$SUFFIX| sed "s/\.tar\..*//g"
+	exit 1 
+fi
+
+if [ ! -d $OUTPUT_DIR ] 
+then 
+	echo "Output dir $OUTPUT_DIR does not exists....creating"
+	mkdir -p $OUTPUT_DIR
+fi
+
+$TAR_CMD $WORK -C $OUTPUT_DIR; $FILE_MANAGER $OUTPUT_DIR; rm -rf $OUTPUT_DIR

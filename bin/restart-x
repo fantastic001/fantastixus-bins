@@ -1,0 +1,5 @@
+#!/bin/sh
+
+killall X
+
+echo 1 > .x_restart

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if setxkbmap -query | grep "us,hr"; then 
+	setxkbmap de
+else
+	setxkbmap -option grp:lwin_switch us,hr
+fi

@@ -1,0 +1,28 @@
+#!/bin/sh
+
+. /home/functions
+
+only_root
+
+echo ""
+free -mt
+echo ""
+
+DIRS="/bin /lib64 "
+DIRS+="/opt "
+DIRS+="/usr/bin /usr/lib64 "
+DIRS+="/usr/local/bin /usr/local/lib64"
+
+msg_info "Size of cached data: $(du ${DIRS} -hsc)"
+
+echo ""
+msg_info "Caching dirs: ${DIRS}"
+msg_info "This can be long Time..."
+find  ${DIRS}  -type f -exec cat '{}' > /dev/null \;
+
+echo ""
+msg_info "Caching done."
+
+echo ""
+free -mt
+echo ""

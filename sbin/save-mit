@@ -1,0 +1,17 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+if [ $1 = "--help" ]; then 
+	echo "Usage: $0 backupdir"
+fi
+
+cd /me/data/
+
+DATE=$(date +%Y-%m-%d)
+
+SAVE_DIR="$1"
+
+tar -cjpPf "$SAVE_DIR/save-mit-${DATE}.tar.bz2" MIT

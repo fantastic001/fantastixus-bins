@@ -1,0 +1,10 @@
+#!/bin/bash 
+if [ -x $1 ] 
+then 
+	vim $1 
+else
+	echo "#!/bin/sh" > $1
+	echo "" >> $1
+	vim $1
+	chmod +x $1
+fi

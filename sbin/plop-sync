@@ -1,0 +1,15 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+if [ $(get_distro) != "gentoo" ] 
+then 
+	msg_error "Only on Gentoo based systems."
+fi
+cd /usr/local/portage
+
+rm -rf app-paludis/plop 
+cd app-paludis
+svn co https://svn.keksbude.net/repos/keks-overlay/app-paludis/plop/

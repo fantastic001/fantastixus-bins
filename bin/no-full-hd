@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ $1 = "--help" ]; then 
+	echo "Usage: $0 movie_file" 
+	exit 0 
+fi
+
+ffmpeg -i $1 -c:v mpeg4 -c:a copy -s 640x352 "output-$1"

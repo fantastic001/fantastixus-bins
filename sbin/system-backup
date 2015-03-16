@@ -1,0 +1,11 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+echo "Backup to /backup ?" 
+read p
+$DATE=$(date +%d-%m-%Y)
+tar -cvPpjf /backup/system-$DATE.tar.bz2 / --exclude /proc --exclude /sys --exclude /dev --exclude /home --exclude /stage* --exclude /portage* --exclude /media --exclude /mnt --exclude /backup --exclude /data --exclude /me 
+/home/scripts/end

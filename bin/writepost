@@ -1,0 +1,45 @@
+#!/bin/sh
+
+FORUM=0
+
+print_help() 
+{
+	cat << EOF
+Usage $0 [-f|--forum] 
+
+	-h | --help 			get this help 
+	-f | --forum			make post formated and organized for forums 
+
+
+EOF
+exit 1
+}
+
+get_url() 
+{
+	if [ $FORUM -gt 0 ] 
+	then 
+		cat $3 | sed "s|$1|[url=$2]$1[/link]|g"
+	else
+		cat $3
+	fi
+}
+
+while [ ! -z $1 ] 
+do
+	case $1 in 
+		-f | --forum) FORUM=1; shift ;; 
+		-h | --help) print_help ;; 
+	esac
+done
+
+POST_NUM="$(ls /tmp/ -l | grep writepost-post | wc -l)"
+POST="/tmp/writepost-post$POST_NUM"
+
+vim "$POST"
+
+cat "$POST" | sed "s/[Ll][Ii][Nn][Uu][Xx]/GNU\/Linux/g" | \
+get_url "GNU/Linux" "https://www.linux.com/" | \
+get_url "ubuntu" "http://www.ubuntu.com/"
+
+rm $POST

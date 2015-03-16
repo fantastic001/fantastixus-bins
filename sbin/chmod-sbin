@@ -1,0 +1,7 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+for D in "$(find / -name sbin)"; do chmod -R o-rwx "$D"; done

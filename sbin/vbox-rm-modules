@@ -1,0 +1,6 @@
+#!/bin/sh
+
+rmmod vboxpci 
+rmmod vboxnetflt
+rmmod vboxnetadp
+rmmod vboxdrv

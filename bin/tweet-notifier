@@ -1,0 +1,26 @@
+#!/bin/sh
+
+LAST_TWEET=
+NEW_TWEET=
+check_tweets() 
+{
+	LAST_TWEET="$NEW_TWEET"	
+	if [ ! -z $1 ] 
+	then 
+		NEW_TWEET="$(bti --action friends | grep "$1" | head -1)"
+	else
+		NEW_TWEET="$(bti --action friends | head -1)"
+	fi
+}
+
+check_tweets
+
+while : 
+do 
+	check_tweets
+	if [ "$LAST_TWEET" != "$NEW_TWEET" ] 
+	then 
+		notify-send -i /data/Pictures/Icons/twitter.png "New tweet from $(echo "$NEW_TWEET" | sed "s/^\[\(.*\)\].*/\1/g")" \
+										"$(echo "$NEW_TWEET" | sed "s/^\[.*\]\(.*\)/\1/g")"
+	fi
+done

@@ -1,0 +1,49 @@
+#!/bin/bash
+PLAYER=""
+PLAYLIST_OPTS=""
+PLAY_OPTS=""
+if [ -x $(which amarok) ] 
+then 
+	PLAYER="amarok"	
+fi
+
+if [ $PLAYER != "" ] 
+then 
+	if [ -x $(which mplayer) ] 
+	then 
+		PLAYER="mplayer"
+		PLAYLIST_OPTS="-playlist"
+	fi
+fi
+COMMAND=$PLAYER
+for i in $@ 
+do 
+	if [ $i = "help" -o $i = "--help" ] 
+	then
+		echo "
+		
+		play- [play file] [playlist file]
+			play file		plays specified file
+			playlist file		plays specified .pls or another playlist file
+			only-mplayer		plays file with only mplayer
+			help			shows this help
+		"
+	fi
+	if [ $i = "play" ] 
+	then 
+		COMMAND="$COMMAND $PLAY_OPTS"
+		continue
+	fi
+	if [ $i = "playlist" ] 
+	then 
+		COMMAND="$COMMAND $PLAYLIST_OPTS"
+		continue
+	fi
+	if [ $i = "only-mplayer" ] 
+	then 
+		COMMAND=$(echo $COMMAND | sed "s/^$(echo $COMMAND | awk '(print $1)')/mplayer/g")
+	fi
+	COMMAND="$COMMAND $i"
+done
+
+$COMMAND

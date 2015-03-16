@@ -1,0 +1,97 @@
+#!/bin/bash
+
+USE_STYLE=0
+CSS_FILE=""
+TITLE=""
+IN_FILE=""
+POST_REGEX=""
+function help {
+
+	echo "
+	
+		Welcome to $0
+		
+		Usage $0 [--title [title] --css [file] -i [file]]
+
+		-h --help 	Show this message.
+		--css [file]	specify css file
+		--style		don't need css file, put content of css file specified with --css option into html 
+		--title	[title]	specify title
+		-i [file]	specify input file
+		--post-regex 	write your own regular expression which will be executed after setting blocks
+
+
+Generating files 
+
+	Tags:
+
+		<hyperlink> 
+
+			this is a tag for hyperlinks 
+
+			example 
+
+				<hyperlink> Google >>> www.google.com </hyperlink>
+	"
+	exit
+}
+
+function convert {
+	HTML_BEGIN="<html><head>"
+
+	HTML_BEGIN_END="</head><body>"
+	HTML_END="</body></html>"
+	echo $HTML_BEGIN
+	
+	if [ ! -z "$CSS_FILE" ] 
+	then
+		if [ $USE_STYLE = 0 ] 
+		then
+			echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$CSS_FILE\" />"
+		else
+			echo "<style type=\"text/css\">"
+			cat $CSS_FILE 
+			echo "</style>"
+		fi
+	fi
+	if [ ! -z "$TITLE" ] 
+	then 
+		echo "<title>$TITLE</title>"
+	fi
+
+
+	echo $HTML_BEGIN_END
+	echo "<div id=\"sections\">"
+	echo "<ul>"
+	cat $1 | egrep "<section.*>|</section>" | \
+	sed "s/<section level=[1-6] title=\"\(.*\)\" id=\"\(.*\)\">/<li><a href=\"#\2\">\1<\/a><\/li> <ul>/g" | \
+	sed "s/<\/section>/<\/ul>/g"
+	echo "</ul>"
+	echo "</div>"
+	cat $1 | sed "s/^\([^< ]\)/<p>\1/g" | \
+	sed "s/\([^ >]\) *$/\1<\/p>/g" | sed "s/<hyperlink>\(.*\)>>>\(.*\)<\/hyperlink>/<a href=\"\2\">\1<\/a>/g" | \
+	sed "s/<section level=\([1-6]\) title=\"\(.*\)\" id=\"\(.*\)\">/<div class=\"section\" id=\"\3\"> <h\1>\2<\/h\1>/g" | \
+	sed "s/<\/section>/<\/div>/g" | \
+	sed "s/<code>/<div class=\"code\">/g" | sed "s/<\/code>/<\/div>/g" | \
+	sed "s/<warning>/<div class=\"warning\">/g" | sed "s/<\/warning>/<\/div>/g" | \
+	sed "s/<tip>/<div class=\"tip\">/g" | sed "s/<\/tip>/<\/div>/g"
+	echo $HTML_END
+	exit
+}
+
+while [ ! -z $1 ] 
+do 
+	case $1 in
+		
+		-h | --help) help ;; 
+		-i) shift; IN_FILE="$1"; shift ;;
+		--title) shift; TITLE="$1"; shift ;;
+		--css) shift; CSS_FILE="$1"; shift ;; 
+		--style) USE_STYLE=1; shift ;;
+		--post-regex) shift; POST_REGEX="$1"; shift ;;
+		*) help ;;
+
+	esac
+done
+
+convert $IN_FILE

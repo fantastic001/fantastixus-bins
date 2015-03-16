@@ -1,0 +1,18 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+if [ $1 = "--help" ]; then 
+	echo "Usage: $0 backupdir"
+	exit 0
+fi
+
+cd /me/data/
+
+DATE=$(date +%Y-%m-%d)
+
+SAVE_DIR="$1"
+
+tar -cpPf "$SAVE_DIR/save-data-${DATE}.tar.gz" . --exclude MIT --exclude Music --exclude Videos/Movies

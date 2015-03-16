@@ -1,0 +1,25 @@
+#!/bin/sh
+
+. /home/functions
+
+do_help() 
+{
+	cat << EOF
+Usage: $0 hh:mm:ss.tt seconds input output
+EOF
+exit 1
+}
+
+INPUT=$3
+OUTPUT=$4
+START=$1
+STOP=$2
+
+if [ $1 = "--help" -o $1 = "-h" ] 
+then 
+	do_help
+fi
+msg_info "ffmpeg -ss \"$START\" -t \"$STOP\" -i \"$INPUT\" -acodec copy \"$OUTPUT\""
+ffmpeg -ss "$START" -t "$STOP" -i "$INPUT" -acodec copy "$OUTPUT"
+
+

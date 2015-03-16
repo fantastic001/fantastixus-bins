@@ -1,0 +1,17 @@
+#!/bin/bash
+PANEL="avant-window-navigator"
+WINDOW_MANAGER="fusion-icon"
+WIDGET_MANAGER="screenlets"
+
+CONKY_PROCESSES=$(ps aux | grep conky | sed "/grep/d" | wc -l) 
+if [ $CONKY_PROCESSES -lt 1 ]; then 
+	if [ -f ~/.conkyrc ] 
+	then 
+		conky & 
+	fi
+fi
+
+$PANEL &  
+$WIDGET_MANAGER & 
+
+$WINDOW_MANAGER

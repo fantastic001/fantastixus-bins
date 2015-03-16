@@ -1,0 +1,60 @@
+#!/bin/sh
+
+. /home/functions 
+
+echo "Enter .ui filename (e.g newfile.ui) "
+read UI_FILENAME
+
+echo "Do you want to create ui file? "
+read CREATE_UI
+if [ $CREATE_UI = "y" ] 
+then 
+	designer $UI_FILENAME
+fi
+
+msg_info "Converting ui file to .h file ...... "
+echo ""
+echo "Enter .h filename "
+read H_FILENAME
+uic $UI_FILENAME > $H_FILENAME
+
+echo "Do you want to continue? "
+read CONTINUE
+if [ $CONTINUE = "n" ]; then exit; fi
+
+echo ""
+msg_info "Creating class file ..... "
+#NEW_H_FILENAME=$(echo $H_FILENAME | sed "s/\.h/.cpp/g")
+echo "Enter class file name (e.g myclass) "
+read CLASS_FILENAME
+NEW_H_FILENAME="${CLASS_FILENAME}.h"
+echo "#include <${H_FILENAME}>" >> $NEW_H_FILENAME
+echo "" >> $NEW_H_FILENAME
+echo "Enter class name " 
+read CLASS_NAME
+echo "Base class type (e.g QWidget) "
+read CLASS_TYPE
+echo -e "class ${CLASS_NAME} : public ${CLASS_TYPE} { Ui::$(grep -A 1 "namespace Ui" $H_FILENAME | sed "/\/\//d" | grep class | sed -e "s/class//g" | awk '{print $1}' | sed "s/://g") ui; 
+
+
+public: 
+	${CLASS_NAME}();
+
+
+};" >> $NEW_H_FILENAME
+
+
+NEW_CPP_FILENAME="${CLASS_FILENAME}.cpp"
+
+echo "#include <${NEW_H_FILENAME}>" > $NEW_CPP_FILENAME
+echo "" >> $NEW_CPP_FILENAME
+echo "${CLASS_NAME}::${CLASS_NAME}() 
+{
+	ui.setupUi(this);
+
+}" >> $NEW_CPP_FILENAME
+
+msg_info "DONE!!!"
+echo ""
+msg_warn "Double check your files."
+echo ""

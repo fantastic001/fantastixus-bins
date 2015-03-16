@@ -1,0 +1,58 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+cd /usr/src/linux
+
+if [ ! -r .config ]; then 
+	echo "There is no .config for kernel. "
+	msg_info "Copying /boot/config..."
+	if [ -r /boot/config ]; then 
+		cp /boot/config .config
+	else
+		msg_error "/boot/config does not exists. Exiting..."
+	fi
+fi
+
+cp .config .config.bak
+make oldconfig
+make menuconfig
+make
+make modules_install
+#make install
+msg_info "Installing kernel"
+echo ""
+echo "Select architecture"
+echo "Enter architecture name 
+arm        cris       ia64       microblaze openrisc   s390       sparc      unicore32  xtensa
+avr32      frv        m32r       mips       parisc     score      tile       x86        x86_64
+alpha      blackfin   h8300      m68k       mn10300    powerpc    sh         um
+"
+read ARCH_NAME
+if [ ! -d /boot/gentoo/kernel-backups ] 
+then 
+	mkdir -p /boot/gentoo/kernel-backups
+fi
+
+if [ -r /boot/gentoo/kernel-current ]; then 
+	cp /boot/gentoo/kernel-current /boot/gentoo/kernel-backups/kernel-$(uname -r)-$(date +%Y%m%d)
+fi
+
+cp arch/$ARCH_NAME/boot/bzImage /boot/gentoo/kernel-current
+
+echo -n "Do you want to rebuild modules ?? "
+read Q 
+if [ $Q = "y" ]
+then 
+	/home/sbin/reinstall-modules
+fi
+
+echo -n "Do you want to reboot your system?"
+read ANS
+if [ $ANS = "y" ] 
+then
+	reboot
+fi
+/home/scripts/end

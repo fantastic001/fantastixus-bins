@@ -1,0 +1,20 @@
+#!/bin/sh
+
+. /home/functions
+
+only_root 
+
+if [ $(get_distro) != "gentoo" ] 
+then 
+	msg_error "Only on Gentoo based systems."
+fi
+
+chown -R paludisbuild:paludisbuild /usr/portage/distfiles
+#chown -R paludisbuild:paludisbuild /zajedno/Distfiles
+
+#chown -R paludisbuild:paludisbuild /var/tmp/ccache
+
+chown -R paludisbuild:paludisbuild /var/tmp/paludis
+chmod g+rwx /var/tmp/paludis/
+
+#chown -R paludisbuild:paludisbuild /paketi/Linux/Paludis/binaries /zajedno/paketi/Linux/Paludis/binaries /zajedno/zajedno-sdb/paketi/Linux/Paludis/binaries

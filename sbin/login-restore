@@ -1,0 +1,13 @@
+#!/bin/sh
+
+. /home/functions
+
+only_root
+
+echo -n "Enter login user name"
+read NAMEL
+userdel $NAMEL
+echo -n "Enter new user name" 
+read NNAMEL
+useradd -m -G users -s /bin/bash $NNAMEL
+passwd NNAMEL

@@ -1,0 +1,85 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+if [ ! "$(get_distro)" = "gentoo" ] 
+then 
+	msg_error "Only on Gentoo based systems."
+fi
+do_resolve() {
+	#DATE=$(date)
+	#echo "$DATE System upgrade..." >> /var/mylogs/paludis.log
+	echo "" >> /var/mylogs/portage.log
+	#echo "" >> /var/mylogs/paludis.log
+	#emerge -pvuDN world >> /var/mylogs/portage.log
+	#cave resolve world --complete >> /var/mylogs/paludis.log
+	echo "" >> /var/mylogs/portage.log
+	#echo "" >> /var/mylogs/paludis.log
+	emerge -avuDN world --keep-going
+	
+	#cat /var/mylogs/paludis.log | sed "1,/$DATE/d" | less
+	
+	#msg_info "Log for cave resolve world --complete appended to /var/mylogs/paludis.log. Look at log and then continue."
+	#echo "Would you want to continue? (y: yes r: retry)"
+	#read PALUDIS_CONTINUE
+	#if [ $PALUDIS_CONTINUE = "y" ] 
+	#then
+	#	cave resume 
+	#elif [ $PALUDIS_CONTINUE = "r" ] 
+	#then 
+	#	do_resolve
+	#fi
+	return $?
+}
+do_resolve
+res=$?
+if [ $res -gt 0 ]; then 
+	msg_error "Error while upgrading packages. " $res
+fi
+
+echo -n "Would you want to update directories? "
+read UPDATE_DIRS
+
+if [ $UPDATE_DIRS = "y" ] 
+then 
+	etc-update
+fi
+
+# If we have a paludis, then we must keep settings compatible.
+if no_output which cave; then 
+	echo "Would you want make portage and paludis settings compatible? (paludis2portage)"
+	read MAKE_CONF_COM_PP
+	if [ $MAKE_CONF_COM_PP = "y" ] 
+	then
+		/home/sbin/paludis2portage
+	fi
+fi
+
+echo "would you want to remove any unusual packages? " 
+read RUP 
+if [ $RUP == "y" ]; then 
+	vim /var/lib/portage/world
+	#cave purge
+	#echo "ok??? "
+	#read OK 
+	#if [ $OK == "y" ]; then 
+	#	cave resume 
+	#fi
+	emerge -av --depclean 
+fi
+echo "Fix broken? "
+read FB 
+if [ $FB == "y" ]; then 
+	#cave fix-linkage 
+	#echo "ok???" 
+	#read OK 
+	#if [ $OK == "y" ]; then 
+	#	cave resume 
+	#fi
+	revdep-rebuild -i -- -av
+	emerge -a @preserved-rebuild
+fi
+
+/home/scripts/end

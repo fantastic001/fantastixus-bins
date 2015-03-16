@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo "Your class (i.e. qtimer, qmainwindow, qwidget)" 
+read QTCLASS
+
+firefox http://doc.qt.nokia.com/latest/$QTCLASS.html

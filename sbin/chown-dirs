@@ -1,0 +1,11 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+echo -n "Please enter username of normal user "
+read NUSER
+chown -R $NUSER:$NUSER /data /packages /me/data /me/packages 
+#chmod 755 -R /data /zajedno/data /packages /zajedno/packages
+/home/scripts/end

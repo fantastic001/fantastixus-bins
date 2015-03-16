@@ -1,0 +1,73 @@
+#!/bin/sh
+
+get_help() 
+{
+cat << EOF
+
+Welcome to Firefox Extension Builder Script (FEBS) 
+
+This script is created to help you create standard firefox extension. 
+
+You can use following options: 
+
+	--name name		Specify name of a extension
+	--minver ver		Specify minimum version of a firefox 
+	--version ver		Specify version of a extension
+	--desc text		Specify description of a extension
+	--author name		Your name
+	--homepage url		Your homepage
+
+EOF
+exit $1
+}
+
+name="sample"
+minver="1.0"
+version="1.0"
+desc="This is only example"
+author="FEBS"
+homepage="febs.com"
+
+while [ ! -z "$1" ]; do 
+	case "$1" in 
+		--help) get_help 0 ;; 
+		--name) shift; name="$1"; shift ;; 
+		--minver) shift; minver=$1; shift ;;
+		--version) shift; version=$1; shift ;;
+		--desc) shift; desc="$1"; shift ;; 
+		--author) shift; author="$1"; shift ;; 
+		--homepage) shift; homepage="$1"; shift ;;
+		*) get_help 1 ;; 
+	esac
+done
+
+echo "<?xml version="1.0"?> " >> install.rdf
+echo "<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"  " >> install.rdf
+echo "	xmlns:em="http://www.mozilla.org/2004/em-rdf#"> " >> install.rdf
+echo "	" >> install.rdf
+echo "	<Description about="urn:mozilla:install-manifest">  " >> install.rdf
+echo "		<em:id>$name@$author.org</em:id>" >> install.rdf
+echo "		<em:version>$version</em:version>  " >> install.rdf
+echo "		<em:type>2</em:type> " >> install.rdf
+echo "		<em:targetApplication> " >> install.rdf
+echo "			<Description> " >> install.rdf
+echo "				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>  " >> install.rdf
+echo "				<em:minVersion>$minver</em:minVersion" >> install.rdf
+echo "				<em:maxVersion>14.0</em:maxVersion" >> install.rdf
+echo "			</Description>  " >> install.rdf
+echo "		</em:targetApplication> " >> install.rdf
+echo "	" >> install.rdf
+echo "		<!-- Front End MetaData -->  " >> install.rdf
+echo "		<em:name>$name</em:name>  " >> install.rdf
+echo "		<em:description>$desc</em:description> " >> install.rdf
+echo "		<em:creator>$author</em:creator> " >> install.rdf
+echo "		<em:homepageURL>$homepage</em:homepageURL>  " >> install.rdf
+echo "	</Description>   " >> install.rdf
+echo "</RDF>  " >> install.rdf
+
+mkdir -p chrome/content 
+
+echo "content     $name    chrome/content/" >> chrome/chrome.manifest
+echo "overlay chrome://browser/content/browser.xul chrome://sample/content/sample.xul" >> chrome/chrome.manifest
+
+

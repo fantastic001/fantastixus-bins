@@ -1,0 +1,14 @@
+#!/bin/bash 
+
+#if [ -x $(which xcompmgr) ] 
+#then 
+#	xcompmgr -cCfF -r25 -o.20 -t-8 -D4 &
+#fi
+
+rm .Xdefaults
+
+ln -s .Xdefaults-/fluxbox .Xdefaults
+
+echo "fluxbox" > .currentwm
+
+fluxbox

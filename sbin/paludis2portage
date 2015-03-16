@@ -1,0 +1,93 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+if [ $(get_distro) != "gentoo" ] 
+then 
+	msg_error "Only on Gentoo based systems."
+fi
+
+#first we must to backup previons portage configuration
+msg_info "checking does /etc/portage-save exists..."
+if [ ! -d /etc/portage-save/ ] 
+then 
+	mkdir /etc/portage-save/
+fi
+
+msg_info "copying portage configuration to /etc/portage-save"
+cp /etc/make.conf /etc/portage-save
+cp -r /etc/portage/ /etc/portage-save
+
+cd /etc
+
+msg_info "Configuration copied"
+msg_info "making make.conf"
+echo "" > make.conf
+grep "CHOST" paludis/bashrc >> make.conf
+grep "CFLAGS" paludis/bashrc >> make.conf
+grep "LDFLAGS" paludis/bashrc >> make.conf
+#grep "CXXFLAGS" paludis/bashrc >> make.conf
+MAKE_CONF_KEYWORDS=$(grep "^\*\/\*" paludis/keywords.conf | sed "s/\*\/\* //g")
+echo "ACCEPT_KEYWORDS=\"$MAKE_CONF_KEYWORDS\"" >> make.conf 
+MAKE_CONF_USE=$(grep "^\*\/\*" paludis/use.conf | sed -e "/VIDEO_CARDS: /d" -e "/INPUT_DEVICES: /d"| sed "s/\*\/\* //g")
+echo "USE=\"$MAKE_CONF_USE\"" >> make.conf
+MAKE_CONF_LICENSE=$(grep "^\*\/\*" paludis/licenses.conf | sed "s/\*\/\* //g")
+echo "ACCEPT_LICENSE=\"$MAKE_CONF_LICENSE\"" >> make.conf
+echo "EMERGE_DEFAULT_OPTS=\"--keep-going\"" >> make.conf
+echo "VIDEO_CARDS=\"$(grep VIDEO_CARDS paludis/use.conf | sed "s/\*\/\* //g" | sed "s/VIDEO_CARDS: //g" | sed "s/-\* //g")\"" >> make.conf
+echo "INPUT_DEVICES=\"$(grep INPUT_DEVICES paludis/use.conf | sed "s/\*\/\* //g" | sed "s/INPUT_DEVICES: //g" | sed "s/-\* //g")\"" >> make.conf
+msg_info "converting make.conf done."
+echo "Would you want to view your new make.conf??? "
+read VIEW_MAKE_CONF
+if [ $VIEW_MAKE_CONF = "y" ] 
+then 
+	$EDITOR make.conf
+fi
+
+msg_info "Converting package.keywords..."
+echo "" > portage/package.keywords
+cat paludis/keywords.conf | sed "/\*\/\* /d" >> portage/package.keywords
+msg_info "Converting finished" 
+echo "Would you want to view your ney package.keywords??? "
+read VIEW_KEYWORDS
+if [ $VIEW_KEYWORDS = "y" ] 
+then 
+	$EDITOR portage/package.keywords
+fi
+
+msg_info "Converting package.use..."
+echo "" > portage/package.use
+cat paludis/use.conf | sed "/\*\/\* /d" >> portage/package.use
+msg_info "Converting finished" 
+echo "Would you want to view your ney package.use??? "
+read VIEW_USE
+if [ $VIEW_USE = "y" ]
+then
+        $EDITOR portage/package.use
+fi
+
+msg_info "Converting package.license..."
+echo "" > portage/package.license
+cat paludis/licenses.conf | sed "/\*\/\* /d" >> portage/package.license
+msg_info "Converting finished" 
+echo "Would you want to view your ney package.license??? "
+read VIEW_LICENSE
+if [ $VIEW_LICENSE = "y" ]
+then
+        $EDITOR portage/package.license
+fi
+
+msg_info "converting package.mask and package.unmask....." 
+cat paludis/package_mask.conf > portage/package.mask
+cat paludis/package_unmask.conf > portage/package.unmask
+echo "you also can to make link of package.mask/package.unmask"
+echo "this script has just copied configurations."
+echo ""
+
+msg_info "DONE"
+
+msg_warn "Double check your configuration!!!"
+
+echo ""

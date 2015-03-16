@@ -1,0 +1,18 @@
+#!/bin/sh
+
+. /home/functions
+
+cd ~/ 
+mkdir data 
+cd data 
+
+mkdir -p Documents/Library/{Books,Papers,Magazines,Tests} Documents/Private Documents/School Documents/Security/Passwords 
+mkdir Music
+mkdir -p "Research and development" 
+mkdir -p "Graphics, photography and design"
+mkdir Videos
+
+msg_info "Initialization finished. Please link your ~/data dir in / by running as root"
+msg_info "ln -s $HOME/data /data"
+
+msg_info "Enjoy :)"

@@ -1,0 +1,9 @@
+#!/bin/sh 
+
+. /home/functions 
+
+only_root 
+
+chmod -R 777 /home/bin/
+chmod -R 770 /home/sbin/
+chmod -R 777 /home/scripts/

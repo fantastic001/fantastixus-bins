@@ -1,0 +1,9 @@
+#!/bin/sh
+
+genkernel \
+	--save-config \
+	--no-clean \
+	--install \
+	--no-splash \
+	--kernname=Gentoo \
+	all

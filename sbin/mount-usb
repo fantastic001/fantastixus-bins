@@ -1,0 +1,16 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+OPTIONS="rw,users"
+
+if fdisk -l | grep /dev/sdb1 | awk '{print $7}' | grep NTFS > /dev/null; then 
+	OPTIONS="$OPTIONS,flush"
+fi
+
+mount /dev/sdb1 /media/usb -o $OPTIONS
+
+chmod -R 777 /media/usb/
+

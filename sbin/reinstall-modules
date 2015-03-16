@@ -1,0 +1,20 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+if [ ! "$(get_distro)" = "gentoo" ] 
+then 
+	msg_error "Only on Gentoo based systems."
+fi
+PKGS=$(qlist -IC virtualbox-modules broadcom)
+
+emerge -a $PKGS @x11-module-rebuild
+#cave resolve $PKGS
+#echo -n "is it ok??? "
+#read Q
+#if [ $Q = "y" ]
+#then 
+#	cave resume
+#fi 

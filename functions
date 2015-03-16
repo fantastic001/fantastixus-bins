@@ -1,0 +1,119 @@
+#!/bin/sh
+
+##### Standard terminal color codes #####
+
+COLOR_WHITE="\033[01;37m"
+
+COLOR_RED="\033[22;31m"
+COLOR_GREEN="\033[22;32m"
+COLOR_BLUE="\033[22;34m"
+COLOR_YELLOW="\033[22;33m"
+
+COLOR_RED_BOLD="\033[01;31m"
+COLOR_GREEN_BOLD="\033[01;32m"
+COLOR_BLUE_BOLD="\033[01;34m"
+COLOR_YELLOW_BOLD="\033[01;33m"
+
+COLOR_RESET="\033[0:0m"
+
+##### Output functions #####
+
+# Normal message
+msg() 
+{
+	echo -ne "$1"
+}
+
+# Information message 
+msg_info() 
+{
+	echo -e "$COLOR_BLUE>>>>$COLOR_RESET      $COLOR_WHITE$1 $COLOR_RESET"
+}
+
+# Warning message 
+msg_warn() 
+{
+	echo -e "${COLOR_RED_BOLD}WARNING:$COLOR_RESET      $COLOR_WHITE$1 $COLOR_RESET"
+}
+
+# Error message
+msg_error() 
+{
+	echo -e "${COLOR_RED_BOLD}ERROR:$COLOR_RESET      $COLOR_YELLOW_BOLD$1 $COLOR_RESET"
+	if [ -z $2 ]; then 
+		exit 1 
+	else
+		exit $2
+	fi
+}
+
+# Deletes whole currently cursor line 
+del_line() 
+{
+	# TODO: Some faster way 
+	echo -ne "\r"
+	for (( i=1; i<=$(tput cols); i++ )); do echo -n " "; done
+	echo -e "\r"
+}
+
+# Execute command but do not print stdout and stderr messages
+no_output() 
+{
+	$@ >/dev/null 2>&1
+	return $?
+}
+
+# Only ROOT can execute script 
+only_root() 
+{
+	#msg_warn "Only root can execute this script"
+	if [ $EUID != 0 ]; then 
+		msg_error "Only root can execute this script. You're not a root!!!"
+	fi
+}
+
+# Get distro string 
+# Currently there are following strings:
+# 	
+#	debian 		Debian and debian based distributions
+#	archlinux	ArchLinux and ArchLinux based distributions
+#	slackware	Slackware and Slackware based distributions
+#	gentoo		Gentoo and its based distributions
+#	unknown		Unknown distribution
+get_distro() 
+{
+	# Check is it debian 
+	if no_output which apt-get; then 
+		echo "debian"
+		return 
+	fi
+	if no_output which pacman; then 
+		echo "archlinux"
+		return 
+	fi
+	if no_output which slackpkg; then 
+		echo "slackware"
+		return 
+	fi
+	if no_output which emerge; then 
+		echo "gentoo"
+		return
+	fi
+	echo "unknown" 
+	return 
+}
+
+# Echoes "$1 (y/n) and waits for answer, if answer is Y/y/Yes/YES/yes/... then return 0, otherwise return 1" 
+ask_question() 
+{
+	echo "$1 (y/n)" 
+	local answer 
+	read answer 
+	if [ $answer = "y" -o $answer = "Y" ]; then 
+		return 0
+	else 
+		return 1
+	fi
+}
+
+

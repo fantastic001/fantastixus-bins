@@ -1,0 +1,21 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+if [ $(get_distro) != "gentoo" ] 
+then 
+	msg_error "Only on Gentoo based systems."
+fi
+
+echo "Enter package category. "
+read PACKAGE_CATEGORY
+echo "Package name"
+read PACKAGE_NAME
+echo "Package version" 
+read PACKAGE_VERSION
+
+cd /var/db/pkg/.cache/
+cp -a /var/db/pkg/.cache/provides /var/db/pkg/.cache/provides-orig
+sed -i -e "/$PACKAGE_CATEGORY\/$PACKAGE_NAME $PACKAGE_VERSION/d" /var/db/pkg/.cache/provides

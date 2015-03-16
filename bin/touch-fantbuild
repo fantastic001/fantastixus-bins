@@ -1,0 +1,27 @@
+#!/bin/sh
+
+MAINTAINER="Stefan Nozinic <stefan AT lugons DOT org>"
+
+cat << EOFL
+PKG_NAME=""
+PKG_BUILD=1
+
+#PKG_VERSION=
+#PKG_SOURCE=""
+#PKG_MD5SUM=""
+
+PKG_HOMEPAGE=""
+PKG_MAINTAINER="$MAINTAINER"
+
+#PKG_VCS=""
+
+build_pkg() 
+{
+
+}
+
+install_pkg() 
+{
+
+}
+EOFL

@@ -1,0 +1,70 @@
+#!/bin/sh
+
+do_help() 
+{
+	cat << EOF
+
+Usage $0 [--title title] --log logfile
+
+	--title text		show title
+	--log 			specify irclog file
+
+EOF
+exit 1
+}
+
+TITLE=
+LOGFILE=
+
+while [ ! -z $1 ] 
+do
+	case $1 in 
+		--title) shift; TITLE="$1" ; shift ;; 
+		--log) shift; LOGFILE=$1; shift ;; 
+		-h|--help) do_help ;; 
+		*) do_help ;; 
+	esac
+done
+
+echo "<html>"
+
+echo "<head>" 
+echo "<title>$TITLE</title>"
+echo "<style type=\"text/css\">"
+
+cat << EOF
+
+h1 
+{
+	color: #2a6f80;
+}
+
+body 
+{
+	background-color: #e7e7e7;
+}
+
+.irclog 
+{
+	background-color: white;
+	margin: 50px; 
+	padding: 25px;
+}
+EOF
+
+echo "</style>"
+echo "</head>"
+
+echo "<body>"
+
+cat << EOF
+<h1>$TITLE</h1>
+<div class="irclog"> 
+$(cat $LOGFILE | sed "s|^.*\([0-9][0-9]:[0-9][0-9]\).*<\(.*\)>\(.*\)$|\1 \2: \3|g" | 
+			sed "s/</&lt/g" | sed "s/>/&gt/g" | sed "/[0-9][0-9]\/[0-9][0-9]\/[0-9][0-9]/d" | sed "s|$|<br />|g")
+</div>
+EOF
+
+echo "</body>"
+
+echo "</html>"

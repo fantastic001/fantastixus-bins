@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ $(uname -r | grep -i arch | wc -l) -gt 0 -a -e "$(which pacman)" ] 
+then 
+	echo "ArchLinux"
+fi
+if [ -e "$(which emerge 2> /dev/null)" ] 
+then 
+	echo "Gentoo"
+fi

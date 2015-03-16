@@ -1,0 +1,27 @@
+#!/bin/sh
+
+. /home/functions 
+
+get_package_number() 
+{
+	if [ get_distro = "gentoo" ]; then 
+		qlist -I | wc -l
+	else 
+		pacman -Q | wc -l
+	fi
+}
+
+
+/home/bin/data-usage /me/data/ >> "/data/Statistics/Data usage/$(date +%Y-%m-%d)"
+#echo >> "/data/Statistics/Data usage/$(date +%Y-%m-%d)"
+
+df -h >> "/data/Statistics/Disk usage/$(date +%Y-%m-%d)"
+
+
+BUFF=""
+if [ get_distro = "gentoo" ]; then 
+	BUFF="/data/Statistics/Package number/$(date +%Y-%m-%d)"
+else 
+	BUFF="/data/Statistics/Package number/archlinux-$(date +%Y-%m-%d)"
+fi
+echo "Package number: $(get_package_number)" >> "$BUFF"

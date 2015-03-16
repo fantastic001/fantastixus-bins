@@ -1,0 +1,130 @@
+#!/bin/sh
+
+. /home/functions
+
+only_root 
+
+if [ $(get_distro) != "Gentoo" ] 
+then 
+	msg_error "Only on Gentoo based systems."
+fi
+
+msg_info "Welcome to Gentoo installation script." 
+
+echo "Please enter your password for root of current LiveCD" 
+passwd 
+
+if [ ! -d /mnt/gentoo ] 
+then 
+	msg_warn "/mnt/gentoo does not exists. Creating directory..."
+	mkdir /mnt/gentoo
+fi
+
+cd /mnt/gentoo
+
+echo "Press enter to continue with installtion and configuring your partitions."
+read p 
+cfdisk /dev/sda
+msg_info "If you have /dev/sdb and other hdds please run cfdisk /dev/sdx and when you done press enter" 
+read p 
+
+
+PARTS=$(fdisk -l | grep "^/dev" | awk '{print $1}')
+
+EXT3="mkfs.ext3"
+EXT4="mkfs.ext4"
+SWAP="mkswap"
+
+for PART in "$PARTS" 
+do 
+	
+	echo "What format do you want for $PART ? "
+	echo "
+	1) 	ext3
+	2)	ext4
+	3) 	Linux SWAP
+	4) 	Do nothing
+	"
+	read PART_FORMAT
+
+	if [ $PART_FORMAT = "1" ] 
+	then 
+		$EXT3 $PART
+	fi
+
+	if [ $PART_FORMAT = "2" ] 
+	then 
+		$EXT4 $PART
+	fi
+
+	if [ $PART_FORMAT = "3" ] 
+	then 
+		$SWAP $PART
+	fi
+
+done 
+
+echo "Enter name of root partittion. "
+echo $PARTS
+read ROOT_PART
+msg_info "mounting $ROOT_PART on /mnt/gentoo..."
+mount $ROOT_PART /mnt/gentoo
+cd /mnt/gentoo
+msg_info "please open another terminal and mount other partittions. "
+msg_info "when you done please press enter to continue with installation. " 
+read p 
+
+
+msg_info "Downloading stage3...."
+wget http://mirror.switch.ch/ftp/mirror/gentoo/releases/amd64/current-stage3/stage3-amd64-20110609.tar.bz2 http://mirror.switch.ch/ftp/mirror/gentoo/releases/amd64/current-stage3/stage3-amd64-20110609.tar.bz2.CONTENTS http://mirror.switch.ch/ftp/mirror/gentoo/releases/amd64/current-stage3/stage3-amd64-20110609.tar.bz2.DIGESTS
+
+msg_info "Dwnloading portage..."
+wget http://mirror.switch.ch/ftp/mirror/gentoo/releases/snapshots/current/portage-latest.tar.xz http://mirror.switch.ch/ftp/mirror/gentoo/releases/snapshots/current/portage-latest.tar.xz.md5sum
+
+msg_info "checking...." 
+md5sum -c stage3-*.tar.bz2.DIGESTS
+md5sum -c portage-latest.tar.xz.md5sum
+
+msg_info "if all is ok you can continue with installation by pressing enter. "
+read p 
+
+msg_info "Extracting stage3....." 
+sleep 5 
+tar xvjPf /mnt/gentoo/stage3-*.tar.bz2 -C /mnt/gentoo/
+
+msg_info "Extracting portage...." 
+sleep 5 
+tar xvJf /mnt/gentoo/portage-latest.tar.bz2 -C /mnt/gentoo/usr
+
+msg_info "Copying scripts and config files from /save dir to /mnt/gentoo/save" 
+[ -d /save ] && cp -r /save /mnt/gentoo
+
+msg_info "Configuring make.conf... "
+echo "" > /etc/make.conf 
+
+echo "Enter your CHOST: " 
+echo "Recommended $(gcc-config -c | grep linux-gnu | sed "s/gnu-.*/gnu/g")"
+read MAKE_CONF_CHOST
+echo "CHOST=\"$MAKE_CONF_CHOST\"" >> /etc/make.conf
+
+echo "Enter your CFLAGS" 
+read MAKE_CONF_CFLAGS 
+echo "CFLAGS=\"$MAKE_CONF_CFLAGS\"" >> /etc/make.conf
+echo "CXXFLAGS=\${CLAGS}" >> /etc/make.conf
+echo "LDFLAGS=\"-Wl,-O1 -Wl,--as-needed\"" >> /etc/make.conf
+
+echo "What is your arhitecture (e.g. amd64 or x86) , if you want to use testing three you must add ~ at beggining (e.g. ~amd64)"
+read MAKE_CONF_ARCH 
+echo "KEYWORDS=\"$MAKE_CONF_ARCH\"" >> /etc/make.conf
+
+echo "Enter your primary USE flags" 
+read MAKE_CONF_USE
+echo "USE=\"$MAKE_CONF_USE\"" >> /etc/make.conf
+
+echo "ACCEPT_LICENSE=\"*\"" >> /etc/make.conf
+
+echo "What is your hostname? " 
+read HOSTNAME
+echo "hostname=\"$HOSTNAME\"" > /etc/conf.d/hostname 
+
+

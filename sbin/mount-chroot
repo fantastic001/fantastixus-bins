@@ -1,0 +1,80 @@
+#!/bin/sh
+
+. /home/functions
+
+only_root
+
+usage() 
+{
+	echo "
+	Usage: $0 partittion
+
+
+	
+"
+	exit 1 
+}
+
+if [ -z $1 ]; then 
+	usage
+fi
+
+
+if [ -d /mnt/chroot ]; then 
+	msg_error "Another chroot..."
+fi
+
+if [ ! -d /mnt/chroot ]; then 
+	msg_info "Creating /mnt/chroot ..."
+	mkdir -p /mnt/chroot
+fi
+
+msg_info "Mounting partittion on /mnt/chroot ..."
+mount $1 /mnt/chroot
+
+msg_info "Mounting /proc ..."
+mount -t proc /proc /mnt/chroot/proc
+
+msg_info "Mounting /dev ..." 
+mount -o bind /dev /mnt/chroot/dev
+
+msg_info "Mounting /sys ..."
+mount -o bind /sys /mnt/chroot/sys
+
+M_BOOT=0
+M_ME=0
+
+echo "Do you want to mount /boot on chroot (binding) ? (y/n)"
+read MOUNT_ANS
+if [ $MOUNT_ANS = "y" ]; then 
+	mount -o bind /boot /mnt/chroot/boot
+	M_BOOT=1
+fi
+
+if [ -d /me ]; then 
+	echo "Do you want to mount /me on chroot (binding) ? (y/n)"
+	read MOUNT_ANS
+	if [ $MOUNT_ANS = "y" ]; then
+		mount -o bind /me /mnt/chroot/me
+		M_ME=1
+	fi
+fi
+
+msg_info "Chrooting ..."
+cp /etc/resolv.conf /mnt/chroot/etc/resolv.conf
+chroot /mnt/chroot /bin/bash
+
+msg_info "unmounting ..."
+umount /mnt/chroot/proc
+umount /mnt/chroot/dev
+umount /mnt/chroot/sys
+if [ $M_BOOT = 1 ]; then 
+	umount /mnt/chroot/boot
+fi
+
+if [ $M_ME = 1 ]; then
+        umount /mnt/chroot/me
+fi
+umount /mnt/chroot
+
+rmdir /mnt/chroot

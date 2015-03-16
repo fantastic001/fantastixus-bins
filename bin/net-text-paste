@@ -1,0 +1,3 @@
+#!/bin/bash
+
+wgetpaste "$1" | grep -i "here" | sed "s/Your paste can be seen here: //" 

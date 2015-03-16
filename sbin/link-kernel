@@ -1,0 +1,25 @@
+#!/bin/sh
+
+. /home/functions
+
+only_root
+
+if [ -d /boot/slackware ] 
+then 
+	cd /boot/slackware/
+else
+	echo "/boot/slackware does not exists"
+	echo "Please enter path to your place where are config System.map and vmlinuz kernel image"
+	read KERNELSPATH
+	cd $KERNELSPATH
+fi
+
+echo "Please enter kernel version"
+read VERSION_KERNEL
+
+for FILE in System.map vmlinuz config
+do 
+	echo "$FILE"
+	rm -rf $FILE
+	ln -s $FILE-huge-$VERSION_KERNEL $FILE
+done

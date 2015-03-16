@@ -1,0 +1,17 @@
+#!/bin/sh
+
+. /home/functions 
+
+only_root 
+
+SAVE_DIR="/me/save"
+SAVE_ZAJEDNO_DIR="$SAVE_DIR/me/"
+SAVE_ARCHIVE="/data/save-archive/"
+
+#Clean /me archives 
+find  $SAVE_ZAJEDNO_DIR -mtime +365 -delete
+
+#Clean save-archive
+find $SAVE_ARCHIVE -mtime +365 -delete
+
+
