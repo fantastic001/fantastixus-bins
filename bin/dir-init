@@ -11,7 +11,7 @@ mkdir Music
 mkdir -p "Research and development" 
 mkdir -p "Graphics, photography and design"
 mkdir Videos
-
+mkdir -p "/data/Graphics, photography and design/Pictures/Screenshots/"
 msg_info "Initialization finished. Please link your ~/data dir in / by running as root"
 msg_info "ln -s $HOME/data /data"
 

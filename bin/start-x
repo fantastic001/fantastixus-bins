@@ -13,7 +13,7 @@ start_x() {
 	xbindkeys
 	
 	#Clipboard
-	autocutsel -selection PRIMARY -fork &
+	autocutsel -selection PRIMARY -fork 
 	
 	#Play Startup sound
 	#aplay /me/data/Sounds/startup.wav &
