@@ -11,4 +11,4 @@ fi
 
 msg_info "Converting $1 to $(echo "$1" | sed "s/mp4/mp3/g")..."
 
-ffmpeg -i "$1" -vn -ar 44100 -ac 2 -ab 320 -f mp3 "$(echo "$1" | sed "s/mp4/mp3/g")" >/dev/null 2>&1
+ffmpeg -i "$1" -vn -ar 44100 -ac 2 -ab 320 -f mp3 "$(echo "$1" | sed "s/mp4/mp3/g" | sed "s/mkv/mp3/g")" >/dev/null 2>&1
