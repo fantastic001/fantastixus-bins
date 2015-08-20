@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ $1 = "--help" ]; then 
+	echo "Usage: $0 list output"
+fi
+
+convert -delay 10 -loop 0  $@
