@@ -1,0 +1,11 @@
+#!/bin/sh
+
+cd /data
+
+TARBALL_NAME="org-backup-$(date +%Y-%m-%d).tar.gz"
+
+tar -cvf $TARBALL_NAME Documents/About\ Me/ Documents/Finance/
+
+gpg -c $TARBALL_NAME
+
+cp "$TARBALL_NAME.gpg" ~/Dropbox
