@@ -12,8 +12,11 @@ url="$1"
 title="$2" 
 filename="${2}.mp4"
 
-youtube-dl $1 -o "$filename" 
+youtube-dl $1 --no-playlist -o "$filename" 
 
-mp42mp3 "$filename" 
-
-rm "$filename"
+for format in mp4 mkv; do 
+	if [ -f "${2}.$format" ]; then 
+		mp42mp3 "${2}.$format"
+		rm "${2}.$format"
+	fi
+done
