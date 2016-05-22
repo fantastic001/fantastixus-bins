@@ -1,0 +1,23 @@
+#!/bin/sh
+
+if grep "default" ~/.asoundrc; then 
+	echo "
+pcm.!hdmi {
+    type hw
+    card 0
+    device 3
+}
+" > ~/.asoundrc
+	pacmd set-default-sink 1
+else
+	echo "
+pcm.!default {
+    type hw
+    card 0
+    device 0
+}
+
+" > ~/.asoundrc
+	pacmd set-default-sink 0
+fi
+
