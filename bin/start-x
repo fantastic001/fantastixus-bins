@@ -3,7 +3,7 @@
 start_x() {
 
 	#Set mouse speed to 0 
-	exec xset m 1000 0
+	xset m 0
 	
 	#Start touchpad daemon
 	syndaemon -t -k -i 2 -d & 
