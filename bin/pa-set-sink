@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ $1 = "--help" ]; then 
+	echo "Usage $0 sink-name where sink-name can be found using pa-list-sinks script."
+	exit
+fi
+
+pacmd set-default-sink $1
+
