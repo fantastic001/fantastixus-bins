@@ -2,7 +2,7 @@
 
 cd /data
 
-TARBALL_NAME="org-backup-$(date +%Y-%m-%d).tar.gz"
+TARBALL_NAME="org-backup-$(date +%Y-%m-%d-%H-%M).tar.gz"
 
 tar -cvf $TARBALL_NAME Documents/About\ Me/ Documents/Finance/ Documents/Notes
 
