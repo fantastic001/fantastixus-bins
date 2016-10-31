@@ -9,5 +9,5 @@ tar -cvf $TARBALL_NAME Documents/About\ Me/ Documents/Finance/ Documents/Notes
 gpg -c $TARBALL_NAME
 
 if which rclone; then 
-	rclone copy /"$TARBALL_NAME.gpg" DropBox:/
+	rclone copy "$TARBALL_NAME.gpg" DropBox:/
 fi
