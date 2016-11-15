@@ -1,0 +1,23 @@
+#!/bin/sh
+rclone ls DropBox:/ | grep "org-" | sed "s/^[ \t]*//g" | cut -f 2 -d " " | sort 
+
+echo "Enter name of selected backup"
+
+read FN
+
+echo "Downloading $FN ...."
+rclone copy DropBox:/$FN /data/
+
+if [ -f /data/backup.tar.gz ]; then 
+	rm /data/backup.tar.gz
+fi
+
+echo "Removing existing directories..."
+rm -rf "/data/Documents/About Me" "/data/Documents/Notes"
+
+cd /data 
+
+if gpg -o backup.tar.gz -d $FN; then 
+	tar -xvf backup.tar.gz 
+fi
+
