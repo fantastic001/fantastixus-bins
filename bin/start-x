@@ -61,7 +61,7 @@ start_x() {
 	#if [ ! -z $(which awesome 2>/dev/null) ] 
 	#then 
 		#exec qtile # Waiting stable version
-		exec awesome
+		exec qtile
 	#else
 		#exec startx-fluxbox
 	#fi
