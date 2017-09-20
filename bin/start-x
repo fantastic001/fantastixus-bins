@@ -42,9 +42,11 @@ start_x() {
 	# Set up a background image
 	feh --bg-scale .config/awesome/background.jpg
 	
-	eval "$(ssh-agent -s)"
-	ssh-add ~/.ssh/id_rsa
-	ssh -T git@github.com
+	if [ -f ~/.ssh/id_rsa ]; then
+		eval "$(ssh-agent -s)"
+		ssh-add ~/.ssh/id_rsa
+		ssh -T git@github.com
+	fi
 	
 	# Set window name
 	wmname LG3D
