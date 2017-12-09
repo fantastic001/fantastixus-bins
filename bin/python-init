@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ls | sort | grep -e "^[^_].*\.py" | sed "s/\.py//g" | sed "s/^/from ./g" | sed "s/\$/ import */g"
