@@ -1,0 +1,5 @@
+#!/bin/sh
+
+rm -rf ~/.mako/db
+cp -r /data/Documents/About\ Me/ ~/.mako/db/
+
