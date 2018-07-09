@@ -1,5 +1,5 @@
 #!/bin/sh
 
-rm -rf ~/.mako/db
-cp -r /data/Documents/About\ Me/ ~/.mako/db/
+rm -rf ~/.mako/db/Projects
+cp -r /data/Documents/About\ Me/* ~/.mako/db/
 
