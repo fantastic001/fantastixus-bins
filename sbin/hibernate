@@ -5,6 +5,8 @@
 only_root 
 
 killall firefox 
+killall chromium
+sleep 2
 mem-uncache
 
 #systemctl hibernate
