@@ -15,4 +15,4 @@ DATE=$(date +%Y-%m-%d)
 
 SAVE_DIR="$1"
 
-tar -cpPf "$SAVE_DIR/save-data-${DATE}.tar.gz" . --exclude MIT --exclude Videos/Youtube --exclude Videos/Movies
+tar -cpPf "$SAVE_DIR/save-data-${DATE}.tar.gz" --exclude MIT --exclude Videos/Youtube --exclude Videos/Movies .
