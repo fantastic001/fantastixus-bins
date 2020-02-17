@@ -6,16 +6,13 @@ param (
 )
 
 
-import-module dropbox 
-
 
 if ($Choice -eq "") {
     
-    # New-PSDrive -Name "DropBox" -PSProvider "DropBox" 
-    echo "Automatic downloading not yet available, please place your dropbox content into ~/dropbox"
-
-    ls ~/dropbox | ? {$_.Name -match ".*\.gpg"}
-    $choice = (Read-Host -Prompt "Enter your choice: ") 
+    rclone.exe ls DropBox:/ 
+    $choice = (Read-Host -Prompt "Enter name of your backup: ") 
+    echo "Downloading $choice ...."
+    rclone copy DropBox:/$choice (Get-Item ~/data/).FullName
 }
 
 function unpack {
@@ -37,10 +34,14 @@ function unpack {
     }
     $Path = (Get-Item $Path).FullName
     & $GPGPath -o backup.tar.gz -d $Path
-    rm  -Force -Recurse "~/data/Documents/About Me", "~/data/Documents/Notes"
+    try {
+        rm  -Force -Recurse "~/data/Documents/About Me", "~/data/Documents/Notes"
+    } catch {
+        echo "Directories not removed....skipping"
+    }
     tar -xvf backup.tar.gz 
 
     popd
 }
 
-unpack -Path "~/dropbox/$Choice"
+unpack -Path "~/data/$Choice"
