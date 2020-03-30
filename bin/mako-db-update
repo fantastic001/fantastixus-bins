@@ -3,4 +3,7 @@
 rm -rf ~/.mako/db/Projects
 rm -rf ~/.mako/db/Schedule/*
 cp -r /data/Documents/About\ Me/* ~/.mako/db/
+mkdir -p '~/.mako/db/Schedule conditions/'
+mkdir -p ~/.mako/db/Tables/
+mkdir -p ~/.mako/db/Measurements/
 
