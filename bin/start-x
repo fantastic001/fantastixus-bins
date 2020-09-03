@@ -54,6 +54,8 @@ start_x() {
 	else 
 		~/.startup &
 	fi
+	systemctl start --user xdg-desktop-portal
+
 
 	#Start your own window manager
 	#if [ ! -z $(which awesome 2>/dev/null) ] 
@@ -75,6 +77,8 @@ start_x() {
 export EDITOR="vim"
 export BROWSER="/usr/bin/firefox"
 export GTK2_RC_FILES=~/.gtkrc-2.0
+export XDG_SESSION_TYPE=x11
+
 
 start_x
 
