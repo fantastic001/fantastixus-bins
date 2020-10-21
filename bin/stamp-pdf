@@ -1,0 +1,55 @@
+#!/bin/sh
+
+
+stamp() {
+	INPUT="$1"
+	TEXT=$2
+	WIDTH=$3
+	HEIGHT=$4
+	
+	work_base="/tmp/stamp-$RANDOM-$(date +%s)"
+	work_tex="$work_base.tex"
+	work_pdf="$work_base.pdf"
+
+	cat > $work_tex << EOF 
+\\documentclass{article}
+\\usepackage{graphicx}
+\\usepackage[absolute]{textpos}
+
+
+\\begin{document}
+\pagenumbering{gobble}
+\\newpage
+
+\\begin{textblock*}{100cm}($WIDTH,$HEIGHT)
+$TEXT
+\\end{textblock*}
+
+\\end{document}
+
+
+EOF
+	texi2pdf -o $work_pdf --clean $work_tex > /dev/null 2>&1
+
+	if [ $? -ne 0 ]; then 
+		echo "Error while running LaTeX command"
+		return 
+	fi
+
+	pdftk "$INPUT" stamp $work_pdf output output.pdf
+	rm $work_pdf $work_tex
+}
+usage() {
+	echo "Usage: $0 input.pdf text width height"
+	echo "width and height can be in cm."
+	exit 1 
+}
+if [ $# -ne 4 ]; then 
+	usage
+fi
+
+if [ $1 = "--help" ]; then 
+	usage
+fi
+
+stamp $1 $2 $3 $4
