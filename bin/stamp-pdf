@@ -3,7 +3,7 @@
 
 stamp() {
 	INPUT="$1"
-	TEXT=$2
+	TEXT="$2"
 	WIDTH=$3
 	HEIGHT=$4
 	
