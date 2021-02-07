@@ -1,0 +1,14 @@
+#!/bin/sh
+
+
+levels=$(cat /sys/class/power_supply/BAT*/capacity)
+
+sum=0
+
+for level in $levels; do 
+	sum=$(($sum + $level))
+done
+
+if [ "$sum" -lt 20 ]; then 
+	systemctl hibernate
+fi
