@@ -44,9 +44,6 @@ start_x() {
 	
 	ssh-add ~/.ssh/id_rsa
 	
-	# Set window name
-	wmname LG3D
-
 	# Startup default starting apps 
 	if [ ! -x ~/.startup ]; then 
 		chmod +x ~/.startup
