@@ -53,6 +53,9 @@ start_x() {
 	fi
 	systemctl start --user xdg-desktop-portal
 	pactl load-module module-bluetooth-discover
+	
+
+	~/.local/bin/commander.sh &
 
 
 	#Start your own window manager
