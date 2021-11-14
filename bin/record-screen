@@ -6,4 +6,4 @@ else
 	OUTPUT="$1"
 fi
 
-ffmpeg -video_size 1920x1080 -framerate 20 -f x11grab -i :0.0+0.0 -c:v libx264rgb -crf 0 -preset ultrafast -color_range 2 "$OUTPUT"
+ffmpeg -video_size 1920x1080 -framerate 5 -f x11grab -i :0.0+0.0 -c:v libx264rgb -crf 0 -preset ultrafast -color_range 2 "$OUTPUT"
