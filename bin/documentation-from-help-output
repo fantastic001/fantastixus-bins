@@ -1,0 +1,86 @@
+#!/bin/bash
+
+IFS=''
+
+function get_print_code(){
+    OPEN=0
+    FILE_NAME=$1
+    NUMBER=$(wc -l < test)
+
+    FILE=$(grep -A $NUMBER "function $FUNCTION_NAME" $FILE_NAME)
+
+    FUNCTION=""
+
+    for wr in $FILE; do
+        letters=$( echo $wr | wc -c  )
+        for (( i=0; i < $letters; i++ )); do
+            ch=${wr::1}
+            wr=${wr: 1 : $(( letters - i )) }
+            #echo $wr
+            #echo $ch
+            FUNCTION="$FUNCTION$ch"
+
+            if [[ $ch == '{' ]]; then
+                OPEN=$(( OPEN + 1 ))
+            elif [[ $ch == '}' ]]; then
+                OPEN=$(( OPEN - 1 ))
+                if [[ $OPEN -eq 0 ]]; then
+                    break 2
+                fi
+            fi  
+
+        done;
+
+    done;
+
+    if [[ $OPEN -ne 0 ]]; then
+        echo ""
+    else
+        echo $FUNCTION
+    fi
+}
+
+touch execute.sh
+chmod +x execute.sh
+
+FUNCTION_NAME="print"
+
+if [[ -z "$1" ]]; then
+    dir_with_scripts="."
+else
+    echo lese
+    dir_with_scripts="$1"
+fi
+
+OUTPUT_FILE_NAME="README-"$dir_with_scripts".md"
+
+echo "# Automaticaly generated documentation using print functions in scripts in $dir_with_scripts" > $OUTPUT_FILE_NAME
+echo >> $OUTPUT_FILE_NAME
+echo "**Following is a list of scripts with their --help output**" >> $OUTPUT_FILE_NAME
+echo >> $OUTPUT_FILE_NAME
+echo >> $OUTPUT_FILE_NAME
+
+for file in "$dir_with_scripts"/* ; do
+    fn=$(get_print_code $file )
+    if [[ -z $fn ]]; then
+        echo "* $file" >> $OUTPUT_FILE_NAME
+        echo "Documentation does not exist" >> $OUTPUT_FILE_NAME
+        
+
+    else
+        echo $fn > execute.sh
+        echo $FUNCTION_NAME >> execute.sh
+        echo "* $file" >> $OUTPUT_FILE_NAME
+        text=$(./execute.sh)
+        text="  "$text
+        echo $text >> $OUTPUT_FILE_NAME
+        echo >> $OUTPUT_FILE_NAME
+    fi
+done
+
+now=$(date)
+echo "_Generated: $now""_" >> $OUTPUT_FILE_NAME
+
+rm execute.sh
+
+unset IFS
