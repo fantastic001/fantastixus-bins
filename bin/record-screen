@@ -2,10 +2,10 @@
 
 function print_usage () {
 
-			echo "Script for starting ffmpeg with options optimized for screen recording"
-			echo "If there are no arguments, script will be executed with default options"
+			echo "Script for starting ffmpeg with options optimised for screen recording"
+			echo "If there are no arguments, default options will be used"
 			echo -e "-o \t define output file"
-			echo -e "-r \t define screen resolution in format"
+			echo -e "-r \t define screen resolution (eg. '1920x1080') "
 
 }
 
@@ -19,14 +19,10 @@ while getopts :ho:r: OPTION; do
 			exit 0
 			;;
 		o)
-			echo "output file"
 			OUTPUT="$OPTARG"
-			echo $o
 			;;
 		r)
-			RESOLUTION="$OPTARG"
-			echo "resolution"
-			echo $r
+			RESOLUTION="$OPTARG"			
 			;;
 		
 		*)
