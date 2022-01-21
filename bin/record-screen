@@ -2,7 +2,7 @@
 
 function print_usage () {
 
-			echo "Script for starting ffmpeg with options for optimized screen recording"
+			echo "Script for starting ffmpeg with options optimized for screen recording"
 			echo "If there are no arguments, script will be executed with default options"
 			echo -e "-o \t define output file"
 			echo -e "-r \t define screen resolution in format"
