@@ -39,6 +39,36 @@ done
 OUTPUT=""
 RESOLUTION=""
 
+<<<<<<< HEAD
+=======
+while getopts :ho:r: OPTION; do
+	case $OPTION in 
+		h)
+			print_usage
+			exit 0
+			;;
+		o)
+			echo "output file"
+			OUTPUT="$OPTARG"
+			echo $o
+			;;
+		r)
+			RESOLUTION="$OPTARG"
+			echo "resolution"
+			echo $r
+			;;
+		
+		*)
+			echo "Invalid option"
+			print_usage
+			exit 1
+			;;
+
+	esac
+done
+
+
+>>>>>>> ab91b75 (added parameter for record-screen scirpt)
 if [[ -z $OUTPUT ]]; then
 	OUTPUT=output.mp4
 fi
