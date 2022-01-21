@@ -30,15 +30,43 @@ while [ $# -gt 0 ]; do
            shift
            break
         ;;
+<<<<<<< HEAD
 
     esac
     shift
 done
+=======
+>>>>>>> 811b066 (added parameter for record-screen scirpt)
 
 
 OUTPUT=""
 RESOLUTION=""
 
+<<<<<<< HEAD
+=======
+while getopts :ho:r: OPTION; do
+	case $OPTION in 
+		h)
+			print_usage
+			exit 0
+			;;
+		o)
+			OUTPUT="$OPTARG"
+			;;
+		r)
+			RESOLUTION="$OPTARG"			
+			;;
+		
+		*)
+			echo "Invalid option"
+			print_usage
+			exit 1
+			;;
+
+	esac
+done
+
+>>>>>>> 811b066 (added parameter for record-screen scirpt)
 if [[ -z $OUTPUT ]]; then
 	OUTPUT=output.mp4
 fi
