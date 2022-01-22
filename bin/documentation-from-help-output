@@ -1,13 +1,21 @@
 #!/bin/bash
 
+function print_usage() {
+    echo "Script for generating documentation using --help output from scripts"
+	echo "If there are no arguments, default options will be used"
+	echo -e "-p \t define path to directory with scripts (dir with this script is default)"
+	echo -e "-f \t define name of function that prints documentation (default is 'print_usage)"
+    echo -e "-h \t print this message"
+}
+
 IFS=''
 
 function get_print_code(){
     OPEN=0
     FILE_NAME=$1
-    NUMBER=$(wc -l < test)
+    NUMBER=$(wc -l < $FILE_NAME)
 
-    FILE=$(grep -A $NUMBER "function $FUNCTION_NAME" $FILE_NAME)
+    FILE=$(grep -A $NUMBER "function $FUNCTION_NAME *()" $FILE_NAME)
 
     FUNCTION=""
 
@@ -40,47 +48,91 @@ function get_print_code(){
     fi
 }
 
-touch execute.sh
-chmod +x execute.sh
+function header() {
+    echo "# Automaticaly generated documentation using $FUNCTION_NAME functions in scripts in $DIR_WITH_SCRIPTS" > $OUTPUT_FILE_NAME
+    echo >> $OUTPUT_FILE_NAME
+    echo "**Following is a list of scripts with their --help output**" >> $OUTPUT_FILE_NAME
+    echo >> $OUTPUT_FILE_NAME
+    echo >> $OUTPUT_FILE_NAME
+}
 
-FUNCTION_NAME="print"
+function footer() {
+    echo >> $OUTPUT_FILE_NAME
+    echo >> $OUTPUT_FILE_NAME
+    echo "_Generated: $now""_" >> $OUTPUT_FILE_NAME
+}
 
-if [[ -z "$1" ]]; then
-    dir_with_scripts="."
-else
-    echo lese
-    dir_with_scripts="$1"
-fi
+function generated_documentation() {
+    for file in "$DIR_WITH_SCRIPTS"/* ; do
+        if [[ $file == "./"$execute_file ]]; then
+            continue
+        fi
 
-OUTPUT_FILE_NAME="README-"$dir_with_scripts".md"
+        fn=$(get_print_code $file )
+        if [[ -z $fn ]]; then
+            echo "* $file" >> $OUTPUT_FILE_NAME
+            echo "Documentation does not exist" >> $OUTPUT_FILE_NAME
+            echo "---" >> $OUTPUT_FILE_NAME
 
-echo "# Automaticaly generated documentation using print functions in scripts in $dir_with_scripts" > $OUTPUT_FILE_NAME
-echo >> $OUTPUT_FILE_NAME
-echo "**Following is a list of scripts with their --help output**" >> $OUTPUT_FILE_NAME
-echo >> $OUTPUT_FILE_NAME
-echo >> $OUTPUT_FILE_NAME
 
-for file in "$dir_with_scripts"/* ; do
-    fn=$(get_print_code $file )
-    if [[ -z $fn ]]; then
-        echo "* $file" >> $OUTPUT_FILE_NAME
-        echo "Documentation does not exist" >> $OUTPUT_FILE_NAME
-        
-
-    else
-        echo $fn > execute.sh
-        echo $FUNCTION_NAME >> execute.sh
-        echo "* $file" >> $OUTPUT_FILE_NAME
-        text=$(./execute.sh)
-        text="  "$text
-        echo $text >> $OUTPUT_FILE_NAME
-        echo >> $OUTPUT_FILE_NAME
-    fi
-done
+        else
+            echo $fn > $execute_file
+            echo $FUNCTION_NAME >> $execute_file
+            echo "* $file" >> $OUTPUT_FILE_NAME
+            text=$(./$execute_file)
+            text="  "$text
+            echo $text >> $OUTPUT_FILE_NAME
+            echo >> $OUTPUT_FILE_NAME
+            echo "---" >> $OUTPUT_FILE_NAME
+        fi
+    done
+}
 
 now=$(date)
-echo "_Generated: $now""_" >> $OUTPUT_FILE_NAME
+execute_file="execute"$now".sh"
+touch $execute_file
+chmod +x $execute_file
 
-rm execute.sh
+DIR_WITH_SCRIPTS=""
+FUNCTION_NAME=""
 
+while getopts :hp:f: OPTION; do
+	case $OPTION in 
+		h)
+			print_usage
+			exit 0
+			;;
+		p)
+			DIR_WITH_SCRIPTS="$OPTARG"
+			;;
+		f)
+			FUNCTION_NAME="$OPTARG"			
+			;;
+		
+		*)
+			echo "Invalid option"
+			print_usage
+			exit 1
+			;;
+
+	esac
+done
+
+
+if [[ -z "$DIR_WITH_SCRIPTS" ]]; then
+    DIR_WITH_SCRIPTS="."
+fi
+
+if [[ -z "$FUNCTION_NAME" ]]; then
+    FUNCTION_NAME="print_usage"
+fi
+
+OUTPUT_FILE_NAME="README-"$DIR_WITH_SCRIPTS".md"
+
+header
+generated_documentation
+footer
+
+
+rm $execute_file
 unset IFS
