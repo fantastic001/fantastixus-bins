@@ -4,11 +4,9 @@
 
 
 * /home/dianas/Projects/bash-documentation-from-function/documentation-from-help-output
-<br>
-Usage: documentation-from-help-output [OPTION]... [FILE]...
-Generates documentation using --help output from scripts
-<br>
+Usage: documentation-from-help-output [OPTION]... [FILE]...<br>Generates documentation using --help output from scripts
+
 ---
 
 
-_Generated: Wed Jan 26 10:25:31 PM CET 2022_
+_Generated: Wed Jan 26 10:44:35 PM CET 2022_
