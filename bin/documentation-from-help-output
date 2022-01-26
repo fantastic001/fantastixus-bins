@@ -1,55 +1,9 @@
 #!/bin/bash
 
-function print_usage() {
-    echo "Script for generating documentation using --help output from scripts"
-	echo "If there are no arguments, default options will be used"
-	echo -e "-p \t define path to directory with scripts (dir with this script is default)"
-	echo -e "-f \t define name of function that prints documentation (default is 'print_usage)"
-    echo -e "-h \t print this message"
-}
-
 IFS=''
 
-function get_print_code(){
-    OPEN=0
-    FILE_NAME=$1
-    NUMBER=$(wc -l < $FILE_NAME)
-
-    FILE=$(grep -A $NUMBER "function $FUNCTION_NAME *()" $FILE_NAME)
-
-    FUNCTION=""
-
-    for wr in $FILE; do
-        letters=$( echo $wr | wc -c  )
-        for (( i=0; i < $letters; i++ )); do
-            ch=${wr::1}
-            wr=${wr: 1 : $(( letters - i )) }
-            #echo $wr
-            #echo $ch
-            FUNCTION="$FUNCTION$ch"
-
-            if [[ $ch == '{' ]]; then
-                OPEN=$(( OPEN + 1 ))
-            elif [[ $ch == '}' ]]; then
-                OPEN=$(( OPEN - 1 ))
-                if [[ $OPEN -eq 0 ]]; then
-                    break 2
-                fi
-            fi  
-
-        done;
-
-    done;
-
-    if [[ $OPEN -ne 0 ]]; then
-        echo ""
-    else
-        echo $FUNCTION
-    fi
-}
-
 function header() {
-    echo "# Automaticaly generated documentation using $FUNCTION_NAME functions in scripts in $DIR_WITH_SCRIPTS" > $OUTPUT_FILE_NAME
+    echo "# Automaticaly generated documentation for scripts in $DIR_WITH_SCRIPTS" > $OUTPUT_FILE_NAME
     echo >> $OUTPUT_FILE_NAME
     echo "**Following is a list of scripts with their --help output**" >> $OUTPUT_FILE_NAME
     echo >> $OUTPUT_FILE_NAME
@@ -59,7 +13,7 @@ function header() {
 function footer() {
     echo >> $OUTPUT_FILE_NAME
     echo >> $OUTPUT_FILE_NAME
-    echo "_Generated: $now""_" >> $OUTPUT_FILE_NAME
+    echo "_Generated: "$(date)"_" >> $OUTPUT_FILE_NAME
 }
 
 function generated_documentation() {
@@ -68,30 +22,21 @@ function generated_documentation() {
             continue
         fi
 
-        fn=$(get_print_code $file )
-        if [[ -z $fn ]]; then
+        text="$( $file -h )"
+        part_of_the_text=$( sed '/^$/q' <<< "$text" ) 
+        if [[ -z $part_of_the_text ]]; then
             echo "* $file" >> $OUTPUT_FILE_NAME
             echo "Documentation does not exist" >> $OUTPUT_FILE_NAME
             echo "---" >> $OUTPUT_FILE_NAME
 
-
         else
-            echo $fn > $execute_file
-            echo $FUNCTION_NAME >> $execute_file
             echo "* $file" >> $OUTPUT_FILE_NAME
-            text=$(./$execute_file)
-            text="  "$text
-            echo $text >> $OUTPUT_FILE_NAME
+            echo $part_of_the_text >> $OUTPUT_FILE_NAME
             echo >> $OUTPUT_FILE_NAME
             echo "---" >> $OUTPUT_FILE_NAME
         fi
     done
 }
-
-now=$(date)
-execute_file="execute"$now".sh"
-touch $execute_file
-chmod +x $execute_file
 
 DIR_WITH_SCRIPTS=""
 FUNCTION_NAME=""
@@ -99,16 +44,19 @@ FUNCTION_NAME=""
 while getopts :hp:f: OPTION; do
 	case $OPTION in 
 		h)
-			print_usage
+            echo "Usage: documentation-from-help-output [OPTION]... [FILE]..."
+            echo "Generates documentation using --help output from scripts"
+            echo 
+	        echo "If there are no arguments, default options will be used"
+	        echo -e "-p \t define path to directory with scripts (dir with this script is default)"
+	        echo -e "-f \t define name of function that prints documentation (default is 'print_usage)"
+            echo -e "-h \t print this message"
 			exit 0
 			;;
-		p)
-			DIR_WITH_SCRIPTS="$OPTARG"
-			;;
-		f)
-			FUNCTION_NAME="$OPTARG"			
-			;;
 		
+        f)
+            DIR_WITH_SCRIPTS=$OPTARG
+            ;;
 		*)
 			echo "Invalid option"
 			print_usage
@@ -118,21 +66,14 @@ while getopts :hp:f: OPTION; do
 	esac
 done
 
-
 if [[ -z "$DIR_WITH_SCRIPTS" ]]; then
-    DIR_WITH_SCRIPTS="."
+    DIR_WITH_SCRIPTS="./"
 fi
 
-if [[ -z "$FUNCTION_NAME" ]]; then
-    FUNCTION_NAME="print_usage"
-fi
-
-OUTPUT_FILE_NAME="README-"$DIR_WITH_SCRIPTS".md"
+OUTPUT_FILE_NAME="README-.md"
 
 header
 generated_documentation
 footer
 
-
-rm $execute_file
 unset IFS
