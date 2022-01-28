@@ -47,7 +47,7 @@ OUTPUT_FILE_NAME=""
 
 
 SHORTOPTS=":hp:o:"
-LONGOPTS="help,path:,outputFile:"
+LONGOPTS="help,path:,output-file:"
 OPTS=$(getopt -o $SHORTOPTS --longoptions $LONGOPTS -n "$0" -- "$@")
 eval set -- "$OPTS"
 
@@ -64,25 +64,21 @@ while [ $# -gt 0 ]; do
         	exit 0
         ;;
 
-        -o|--outputFile)
-            echo wtf
+        -o|--output-file)
             shift
             OUTPUT_FILE_NAME="$1"
-            shift 
         ;;
 
         -p|--path)
             shift
             DIR_WITH_SCRIPTS="$1"
-            shift 
         ;;
-        #--)
-         #   shift
-        #    break
-        #;;
+        --)
+           shift
+           break
+        ;;
 
     esac
-    
     shift
 done
 
@@ -95,6 +91,7 @@ fi
 if [[ -z "$OUTPUT_FILE_NAME" ]]; then
     OUTPUT_FILE_NAME="README-.md"
 fi
+echo $DIR_WITH_SCRIPTS
 echo $OUTPUT_FILE_NAME
 header
 generated_documentation
