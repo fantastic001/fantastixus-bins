@@ -34,8 +34,14 @@ echo "Affected files: "
 for file in $1/*
 do
     if [[ ! $( grep "getopt" $file ) ]]; then
-        echo $file
-        sed -i -e '/#!\//r../data/basic-getopt-code' $file
+
+        if [[ $( sed  -i -e '/#!\/bin\/sh/r../data/basic-getopt-code !{q42};' $file ) -eq 42 ]]; then
+            echo $file
+        fi
+        
+        if [[ $( sed  -i -e '/#!\/bin\/bash/r../data/basic-getopt-code !{q42};' $file ) -eq 42 ]]; then
+            echo $file
+        fi
     fi
 
 done
