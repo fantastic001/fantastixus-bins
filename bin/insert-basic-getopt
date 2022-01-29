@@ -1,0 +1,43 @@
+#!/bin/bash
+
+IFS=''
+
+SHORTOPTS=":h"
+LONGOPTS="help"
+OPTS=$(getopt -o $SHORTOPTS --longoptions $LONGOPTS -n "$0" -- "$@")
+eval set -- "$OPTS"
+
+while [ $# -gt 0 ]; do
+    case $1 in
+        -h|--help)
+            echo "Usage: insert-basic-geopt [OPTION]... [FILE]..."
+            echo "Insert basic getopt sintax in all files in directory"
+            echo 
+            echo "First parameter is a path to dir with files"
+            echo -e "-h \t print this message"
+        	exit 0
+        ;;
+
+        --)
+           shift
+           break
+        ;;
+
+    esac
+    shift
+done
+
+GETOPT_CODE="$( cat ../data/basic-getopt-code )"
+
+echo "Affected files: "
+
+for file in $1/*
+do
+    if [[ ! $( grep "getopt" $file ) ]]; then
+        echo $file
+        sed -i -e '/#!\//r../data/basic-getopt-code' $file
+    fi
+
+done
+
+unset IFS
