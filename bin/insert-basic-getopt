@@ -14,18 +14,24 @@ while [ $# -gt 0 ]; do
             echo "Insert basic getopt sintax in all files in directory"
             echo 
             echo "First parameter is a path to dir with files"
-            echo -e "-h \t print this message"
+            echo -e "-h, --help \t\t\t Print this message"
         	exit 0
         ;;
 
         --)
-           shift
-           break
+            shift
+            break
         ;;
 
     esac
     shift
 done
+
+if [[ -z "$1" ]]; then
+    echo "Directory to be affected is not provided!"
+    echo "Stopping..."
+    exit 1
+fi 
 
 GETOPT_CODE="$( cat ../data/basic-getopt-code )"
 
@@ -33,14 +39,13 @@ echo "Affected files: "
 
 for file in $1/*
 do
-    if [[ ! $( grep "getopt" $file ) ]]; then
-
-        if [[ $( sed  -i -e '/#!\/bin\/sh/r../data/basic-getopt-code !{q42};' $file ) -eq 42 ]]; then
-            echo $file
-        fi
+    if [[ ! $( grep "getopt" $file ) ]]; then    
         
-        if [[ $( sed  -i -e '/#!\/bin\/bash/r../data/basic-getopt-code !{q42};' $file ) -eq 42 ]]; then
+        if [[ $( grep -q "#!/bin/sh" $file ) -eq 0 || $( grep -q "#!/bin/bash" $file ) -eq 0 ]]; then 
             echo $file
+            sed -i -e '/#!\/bin\/sh/r../data/basic-getopt-code' $file
+            continue;
+            sed -i -e '/#!\/bin\/bash/r../data/basic-getopt-code' $file
         fi
     fi
 

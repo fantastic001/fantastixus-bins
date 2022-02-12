@@ -1,4 +1,28 @@
 #!/bin/sh
+
+SHORTOPTS=":h"
+LONGOPTS="help"
+OPTS=$(getopt -o $SHORTOPTS --longoptions $LONGOPTS -n "$0" -- "$@")
+eval set -- "$OPTS"
+
+while [ $# -gt 0 ]; do
+    case $1 in
+        -h|--help)
+            echo "Usage: "
+            echo "Description"
+            echo 
+            #list of options following
+            echo -e "-h \t print this message"
+        	exit 0
+        ;;
+        --)
+           shift
+           break
+        ;;
+
+    esac
+    shift
+done
 xrandr --output LVDS1 --auto --output HDMI1 --same-as LVDS1
 xrandr --output HDMI1 --mode 1920x1080
 feh --bg-scale Desktop/bg.jpg

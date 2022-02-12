@@ -22,6 +22,14 @@ function generated_documentation() {
             continue
         fi
 
+        if [[ $( grep -q "#!/bin/sh" $file ) -ne 0 || $( grep -q "#!/bin/bash" $file ) -ne 0 ]]; then 
+            echo "* $file" >> $OUTPUT_FILE_NAME
+            echo "<br>" >> $OUTPUT_FILE_NAME
+            echo "Documentation does not exist" >> $OUTPUT_FILE_NAME
+            echo "---" >> $OUTPUT_FILE_NAME
+            continue
+        fi
+
         text="$( $file -h )"
         part_of_the_text=$( sed '/^$/q' <<< "$text" ) 
         part_of_the_text=${part_of_the_text//$'\n'/'<br>'}
@@ -58,8 +66,8 @@ while [ $# -gt 0 ]; do
             echo "Generates documentation using --help output from scripts"
             echo 
         	echo "If there are no arguments, default options will be used"
-        	echo -e "-p \t define path to directory with scripts (dir with this script is default)"
-        	echo -e "-f \t define name of function that prints documentation (default is 'print_usage)"
+        	echo -e "-o, --output-file \t Define path to output file (default is README-"
+        	echo -e "-p, --path \t define path to directory to be executed on (default is current directory)"
             echo -e "-h \t print this message"
         	exit 0
         ;;
@@ -89,7 +97,7 @@ if [[ -z "$DIR_WITH_SCRIPTS" ]]; then
 fi
 
 if [[ -z "$OUTPUT_FILE_NAME" ]]; then
-    OUTPUT_FILE_NAME="README-.md"
+    OUTPUT_FILE_NAME="README-"$(date)".md"
 fi
 
 header
