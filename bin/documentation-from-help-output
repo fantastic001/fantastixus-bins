@@ -34,6 +34,14 @@ function generated_documentation() {
             continue
         fi
 
+        if [[ $( grep -q "#!/bin/sh" $file ) -ne 0 || $( grep -q "#!/bin/bash" $file ) -ne 0 ]]; then 
+            echo "* $file" >> $OUTPUT_FILE_NAME
+            echo "<br>" >> $OUTPUT_FILE_NAME
+            echo "Documentation does not exist" >> $OUTPUT_FILE_NAME
+            echo "---" >> $OUTPUT_FILE_NAME
+            continue
+        fi
+
         text="$( $file -h )"
         part_of_the_text=$( sed '/^$/q' <<< "$text" ) 
         part_of_the_text=${part_of_the_text//$'\n'/'<br>'}
