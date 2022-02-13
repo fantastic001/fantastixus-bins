@@ -1,9 +1,4 @@
 #!/bin/bash 
-if [ -x $1 ] 
-then 
-	vim $1 
-else
-	echo "#!/bin/sh" > $1
 
 SHORTOPTS=":h"
 LONGOPTS="help"
@@ -32,3 +27,11 @@ done
 	vim $1
 	chmod +x $1
 fi
+
+if [ -x $1 ] 
+then 
+	vim $1 
+else
+	echo "#!/bin/sh" > $1
+
+

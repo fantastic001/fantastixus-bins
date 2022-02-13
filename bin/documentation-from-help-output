@@ -18,7 +18,7 @@ function footer() {
 
 function generated_documentation() {
     for file in "$DIR_WITH_SCRIPTS"/* ; do
-        if [[ $file == "./"$execute_file ]]; then
+        if [[ "$file" == "./$OUTPUT_FILE_NAME" ]] || [[ "$file" == "./data-usage" ]]; then
             continue
         fi
 
@@ -93,7 +93,7 @@ done
 
 
 if [[ -z "$DIR_WITH_SCRIPTS" ]]; then
-    DIR_WITH_SCRIPTS="./"
+    DIR_WITH_SCRIPTS="."
 fi
 
 if [[ -z "$OUTPUT_FILE_NAME" ]]; then
