@@ -3,310 +3,391 @@
 **Following is a list of scripts with their --help output**
 
 
-* ./add-paper
+* add-paper
 <br>
 Usage: <br>Description
 ---
-* ./all-possible-makefiles
+<br>
+* all-possible-makefiles
 <br>
 Usage: <br>Description
 ---
-* ./android-project
+<br>
+* android-project
 <br>
 Usage: <br>Description
 ---
-* ./backup-org
+<br>
+* backup-org
 <br>
 Usage: <br>Description
 ---
-* ./battery
+<br>
+* battery
 <br>
 Usage: <br>Description
 ---
-* ./check-kernel-version-last
+<br>
+* check-kernel-version-last
 <br>
 Usage: <br>Description
 ---
-* ./create-html-table
+<br>
+* create-html-table
 <br>
 Usage: <br>Description
 ---
-* ./create-so
+<br>
+* create-so
 <br>
 Usage: <br>Description
 ---
-* ./create-ui
+<br>
+* create-ui
 <br>
 Usage: <br>Description
 ---
-* ./c++-task
+<br>
+* c++-task
 <br>
 Usage: <br>Description
 ---
-* ./c++-task-usaco
+<br>
+* c++-task-usaco
 <br>
 Usage: <br>Description
 ---
-* ./cut-media
+<br>
+* cut-media
 <br>
 Usage: <br>Description
 ---
-* ./dir-init
+<br>
+* dir-init
 <br>
 Usage: <br>Description
 ---
-* ./documentation-from-help-output
+<br>
+* documentation-from-help-output
 <br>
 Usage: documentation-from-help-output [OPTION]... [FILE]...<br>Generates documentation using --help output from scripts
 ---
-* ./download-extract-archive
+<br>
+* download-extract-archive
 <br>
 Usage: <br>Description
 ---
-* ./exportbin
+<br>
+* exportbin
 <br>
 Usage: <br>Description
 ---
-* ./firefox-dev
+<br>
+* firefox-dev
 <br>
 Usage: <br>Description
 ---
-* ./firefox-extension-builder
+<br>
+* firefox-extension-builder
 <br>
 Usage: <br>Description
 ---
-* ./full-path
+<br>
+* full-path
 <br>
 Usage: <br>Description
 ---
-* ./gtk2togtk3
+<br>
+* gtk2togtk3
 <br>
 Usage: <br>Description
 ---
-* ./hdmi-full-hd
+<br>
+* hdmi-full-hd
 <br>
 Usage: <br>Description
 ---
-* ./hdmi-toggle
+<br>
+* hdmi-toggle
 <br>
 Usage: <br>Description
 ---
-* ./hdmi-toggle-sound
+<br>
+* hdmi-toggle-sound
 <br>
 Usage: <br>Description
 ---
-* ./inkscape-open
+<br>
+* inkscape-open
 <br>
 Usage: <br>Description
 ---
-* ./insert-basic-getopt
+<br>
+* insert-basic-getopt
 <br>
 Usage: insert-basic-geopt [OPTION]... [FILE]...<br>Insert basic getopt sintax in all files in directory
 ---
-* ./install-theme
+<br>
+* install-theme
 <br>
 Usage: <br>Description
 ---
-* ./ip-public
+<br>
+* ip-public
 <br>
 Usage: <br>Description
 ---
-* ./irclog2html
+<br>
+* irclog2html
 <br>
 Usage: <br>Description
 ---
-* ./is-connected
+<br>
+* is-connected
 <br>
 Usage: <br>Description
 ---
-* ./javac-junit
+<br>
+* javac-junit
 <br>
 Usage: <br>Description
 ---
-* ./keep-alive
+<br>
+* keep-alive
 <br>
 Usage: <br>Description
 ---
-* ./last-screenshot-clipboard
+<br>
+* last-screenshot-clipboard
 <br>
 Usage: <br>Description
 ---
-* ./list-c++-projects
+<br>
+* list-c++-projects
 <br>
 Usage: <br>Description
 ---
-* ./make-gif
+<br>
+* make-gif
 <br>
 Usage: <br>Description
 ---
-* ./mako-db-update
+<br>
+* mako-db-update
 <br>
 Usage: <br>Description
 ---
-* ./mkisofs-
+<br>
+* mkisofs-
 <br>
 Usage: <br>Description
 ---
-* ./moc-generator
+<br>
+* moc-generator
 <br>
 Usage: <br>Description
 ---
-* ./mp42mp3
+<br>
+* mp42mp3
 <br>
 Usage: <br>Description
 ---
-* ./net-text-paste
+<br>
+* net-text-paste
 <br>
 Usage: <br>Description
 ---
-* ./no-full-hd
+<br>
+* no-full-hd
 <br>
 Usage: <br>Description
 ---
-* ./pa-list-sinks
+<br>
+* pa-list-sinks
 <br>
 Usage: <br>Description
 ---
-* ./pa-set-sink
+<br>
+* pa-set-sink
 <br>
 Usage: <br>Description
 ---
-* ./play-movie
+<br>
+* play-movie
 <br>
 Usage: <br>Description
 ---
-* ./play-music
+<br>
+* play-music
 <br>
 Usage: <br>Description
 ---
-* ./play-radio-index
+<br>
+* play-radio-index
 <br>
 Usage: <br>Description
 ---
-* ./play-radio-topfm
+<br>
+* play-radio-topfm
 <br>
 Usage: <br>Description
 ---
-* ./print-screen
+<br>
+* print-screen
 <br>
 Usage: <br>Description
 ---
-* ./progress-
+<br>
+* progress-
 <br>
 Usage: <br>Description
 ---
-* ./project-
+<br>
+* project-
 <br>
 Usage: <br>Description
 ---
-* ./python-init
+<br>
+* python-init
 <br>
 Usage: <br>Description
 ---
-* ./qt-class-reference
+<br>
+* qt-class-reference
 <br>
 Usage: <br>Description
 ---
-* ./record-screen
+<br>
+* README.md
+<br>
+Documentation does not exist
+---
+<br>
+* record-screen
 <br>
 Usage: <br>Description
 ---
-* ./restart-x
+<br>
+* restart-x
 <br>
 Usage: <br>Description
 ---
-* ./restore-org
+<br>
+* restore-org
 <br>
 Usage: <br>Description
 ---
-* ./stamp-pdf
+<br>
+* stamp-pdf
 <br>
 Usage: <br>Description
 ---
-* ./start-x
+<br>
+* start-x
 <br>
 Usage: <br>Description
 ---
-* ./startx-awesome
+<br>
+* startx-awesome
 <br>
 Usage: <br>Description
 ---
-* ./startx-fluxbox
+<br>
+* startx-fluxbox
 <br>
 Usage: <br>Description
 ---
-* ./startx-fusion
+<br>
+* startx-fusion
 <br>
 Usage: <br>Description
 ---
-* ./statistics
+<br>
+* statistics
 <br>
 Usage: <br>Description
 ---
-* ./status-
+<br>
+* status-
 <br>
 Usage: <br>Description
 ---
-* ./tex2im
+<br>
+* tex2im
 <br>
 tex2im [options] inputfile
 ---
-* ./texi2pdf-clean
+<br>
+* texi2pdf-clean
 <br>
 Usage: <br>Description
 ---
-* ./timer-
+<br>
+* timer-
 <br>
 Usage: <br>Description
 ---
-* ./tmux-
+<br>
+* tmux-
 <br>
 Usage: <br>Description
 ---
-* ./toggle-kbdmap-de
+<br>
+* toggle-kbdmap-de
 <br>
 Usage: <br>Description
 ---
-* ./touch-bash
+<br>
+* touch-bash
 <br>
 Usage: <br>Description
 ---
-* ./touch-fantbuild
+<br>
+* touch-fantbuild
 <br>
 Usage: <br>Description
 ---
-* ./touch-java
+<br>
+* touch-java
 <br>
 Usage: <br>Description
 ---
-* ./touch-tex
+<br>
+* touch-tex
 <br>
 Usage: <br>Description
 ---
-* ./tweet-notifier
+<br>
+* tweet-notifier
 <br>
 Usage: <br>Description
 ---
-* ./txt2html
+<br>
+* txt2html
 <br>
 Usage: <br>Description
 ---
-* ./view-source
+<br>
+* view-source
 <br>
 Usage: <br>Description
 ---
-* ./without-comments
+<br>
+* without-comments
 <br>
 Usage: <br>Description
 ---
-* ./writepost
+<br>
+* writepost
 <br>
 Usage: <br>Description
 ---
-* ./youtube-get-song
+<br>
+* youtube-get-song
 <br>
 Usage: <br>Description
 ---
+<br>
 
 
-_Generated: Mon Feb 14 12:52:53 AM CET 2022_
+_Generated: Mon Feb 14 01:09:54 AM CET 2022_
