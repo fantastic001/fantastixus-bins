@@ -1,9 +1,6 @@
 #!/bin/sh
 
-OUTPUT=""
-RESOLUTION=""
-
-SHORTOPTS=":h"
+SHORTOPTS=":ho:r:"
 LONGOPTS="help"
 OPTS=$(getopt -o $SHORTOPTS --longoptions $LONGOPTS -n "$0" -- "$@")
 eval set -- "$OPTS"
@@ -12,24 +9,22 @@ while [ $# -gt 0 ]; do
     case $1 in
         -h|--help)
             echo "Usage: record-screen [OPTION]... [FILE]..."
-            echo "Script for starting ffmpeg with options for optimized screen recording"
+            echo "Script for starting ffmpeg with options optimised for screen recording"
             echo 
             #list of options following
-            echo -e "-o, --oputput-file \t define output file"
-			echo -e "-r, --resolution \t define screen resolution in format"
+            echo -e "-o, --output-file \t define output file"
+			echo -e "-r, --resolution \t define screen resolution (eg. '1920x1080') "
             echo -e "-h, --help \t print this message"
         	exit 0
         ;;
 
-        -o|--output-file)
-            shift
-            OUTPUT="$OPTARG"
+        o|--output-file)
+			OUTPUT="$OPTARG"
+			;;
 
-        ;;
-
-        -r|--resolution)
-            shift
-            RESOLUTION="$OPTARG"
+		r|--resolution)
+			RESOLUTION="$OPTARG"			
+			;;
 
         --)
            shift
@@ -39,6 +34,10 @@ while [ $# -gt 0 ]; do
     esac
     shift
 done
+
+
+OUTPUT=""
+RESOLUTION=""
 
 if [[ -z $OUTPUT ]]; then
 	OUTPUT=output.mp4

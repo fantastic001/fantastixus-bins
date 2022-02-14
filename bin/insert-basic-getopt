@@ -40,11 +40,19 @@ echo "Affected files: "
 for file in $1/*
 do
     if [[ ! $( grep "getopt" $file ) ]]; then    
+<<<<<<< HEAD
         echo $file
         if [[ $( grep -q "#!/bin/sh" $file ) -eq 0 ]]; then 
             sed -i -e '/#!\/bin\/sh/r../data/basic-getopt-code' $file
         fi
         if [[ $( grep -q "#!/bin/bash" $file ) -eq 0 ]]; then
+=======
+        
+        if [[ $( grep -q "#!/bin/sh" $file ) -eq 0 || $( grep -q "#!/bin/bash" $file ) -eq 0 ]]; then 
+            echo $file
+            sed -i -e '/#!\/bin\/sh/r../data/basic-getopt-code' $file
+            continue;
+>>>>>>> 2825a02 (rebase from master and fixed heop in record-screen)
             sed -i -e '/#!\/bin\/bash/r../data/basic-getopt-code' $file
         fi
     fi

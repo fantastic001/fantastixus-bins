@@ -34,4 +34,34 @@ then
 else
 	echo "#!/bin/sh" > $1
 
+<<<<<<< HEAD
 
+=======
+SHORTOPTS=":h"
+LONGOPTS="help"
+OPTS=$(getopt -o $SHORTOPTS --longoptions $LONGOPTS -n "$0" -- "$@")
+eval set -- "$OPTS"
+
+while [ $# -gt 0 ]; do
+    case $1 in
+        -h|--help)
+            echo "Usage: "
+            echo "Description"
+            echo 
+            #list of options following
+            echo -e "-h \t print this message"
+        	exit 0
+        ;;
+        --)
+           shift
+           break
+        ;;
+
+    esac
+    shift
+done
+	echo "" >> $1
+	vim $1
+	chmod +x $1
+fi
+>>>>>>> 2825a02 (rebase from master and fixed heop in record-screen)
