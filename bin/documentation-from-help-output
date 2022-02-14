@@ -17,16 +17,18 @@ function footer() {
 }
 
 function generated_documentation() {
+
     for file in "$DIR_WITH_SCRIPTS"/* ; do
-        if [[ "$file" == "$OUTPUT_FILE_NAME" ]] || [[ "$file" == "./data-usage" ]]; then
+        
+        file_name="$( basename "$file" )"
+
+        if [[ "$file" == "$OUTPUT_FILE_NAME" ]] || [[ "$file_name" == "$OUTPUT_FILE_NAME" ]] || [[ "$file_name" == "data-usage" ]]; then
             continue
         fi
 
-        file_name="$( basename "$file" )"
-
         text="$( $file -h )"
         part_of_the_text=$( sed '/^$/q' <<< "$text" ) 
-        part_of_the_text=${part_of_the_text//$'\n'/'<br>'}
+        #part_of_the_text=${part_of_the_text//$'\n'/'<br>'}
 
         if [[ -z $part_of_the_text ]]; then
             echo "## $file_name" >> $OUTPUT_FILE_NAME
@@ -38,7 +40,7 @@ function generated_documentation() {
         else
             echo "## $file_name" >> $OUTPUT_FILE_NAME
             echo "" >> $OUTPUT_FILE_NAME
-            echo \\"$part_of_the_text" >> $OUTPUT_FILE_NAME
+            echo "$part_of_the_text" >> $OUTPUT_FILE_NAME
             echo "---" >> $OUTPUT_FILE_NAME
             echo "" >> $OUTPUT_FILE_NAME
         fi
