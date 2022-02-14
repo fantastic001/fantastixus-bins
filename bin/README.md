@@ -5,368 +5,307 @@
 
 ## add-paper
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## all-possible-makefiles
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## android-project
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## backup-org
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## battery
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## check-kernel-version-last
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## create-html-table
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## create-so
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## create-ui
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## c++-task
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## c++-task-usaco
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## cut-media
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## dir-init
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## documentation-from-help-output
 
-Usage: documentation-from-help-output [OPTION]... [FILE]...
-Generates documentation using --help output from scripts
+Usage: documentation-from-help-output [OPTION]... [FILE]...<br>Generates documentation using --help output from scripts
 ---
 
 ## download-extract-archive
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## exportbin
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## firefox-dev
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## firefox-extension-builder
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## full-path
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## gtk2togtk3
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## hdmi-full-hd
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## hdmi-toggle
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## hdmi-toggle-sound
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## inkscape-open
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## insert-basic-getopt
 
-Usage: insert-basic-geopt [OPTION]... [FILE]...
-Insert basic getopt sintax in all files in directory
+Usage: insert-basic-geopt [OPTION]... [FILE]...<br>Insert basic getopt sintax in all files in directory
 ---
 
 ## install-theme
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## ip-public
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## irclog2html
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## is-connected
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## javac-junit
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## keep-alive
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## last-screenshot-clipboard
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## list-c++-projects
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## make-gif
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## mako-db-update
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## mkisofs-
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## moc-generator
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## mp42mp3
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## net-text-paste
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## no-full-hd
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## pa-list-sinks
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## pa-set-sink
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## play-movie
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## play-music
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## play-radio-index
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## play-radio-topfm
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## print-screen
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## progress-
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## project-
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## python-init
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## qt-class-reference
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## record-screen
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## restart-x
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## restore-org
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## stamp-pdf
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## start-x
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## startx-awesome
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## startx-fluxbox
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## startx-fusion
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## statistics
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## status-
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## tex2im
@@ -376,88 +315,74 @@ tex2im [options] inputfile
 
 ## texi2pdf-clean
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## timer-
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## tmux-
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## toggle-kbdmap-de
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## touch-bash
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## touch-fantbuild
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## touch-java
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## touch-tex
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## tweet-notifier
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## txt2html
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## view-source
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## without-comments
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## writepost
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 ## youtube-get-song
 
-Usage: 
-Description
+Usage: <br>Description
 ---
 
 
 
-_Generated: Mon Feb 14 01:23:34 AM CET 2022_
+_Generated: Mon Feb 14 01:24:49 AM CET 2022_
