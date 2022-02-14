@@ -3,391 +3,391 @@
 **Following is a list of scripts with their --help output**
 
 
-* add-paper
+## add-paper
 
 Usage: <br>Description
 ---
 
-* all-possible-makefiles
+## all-possible-makefiles
 
 Usage: <br>Description
 ---
 
-* android-project
+## android-project
 
 Usage: <br>Description
 ---
 
-* backup-org
+## backup-org
 
 Usage: <br>Description
 ---
 
-* battery
+## battery
 
 Usage: <br>Description
 ---
 
-* check-kernel-version-last
+## check-kernel-version-last
 
 Usage: <br>Description
 ---
 
-* create-html-table
+## create-html-table
 
 Usage: <br>Description
 ---
 
-* create-so
+## create-so
 
 Usage: <br>Description
 ---
 
-* create-ui
+## create-ui
 
 Usage: <br>Description
 ---
 
-* c++-task
+## c++-task
 
 Usage: <br>Description
 ---
 
-* c++-task-usaco
+## c++-task-usaco
 
 Usage: <br>Description
 ---
 
-* cut-media
+## cut-media
 
 Usage: <br>Description
 ---
 
-* dir-init
+## dir-init
 
 Usage: <br>Description
 ---
 
-* documentation-from-help-output
+## documentation-from-help-output
 
 Usage: documentation-from-help-output [OPTION]... [FILE]...<br>Generates documentation using --help output from scripts
 ---
 
-* download-extract-archive
+## download-extract-archive
 
 Usage: <br>Description
 ---
 
-* exportbin
+## exportbin
 
 Usage: <br>Description
 ---
 
-* firefox-dev
+## firefox-dev
 
 Usage: <br>Description
 ---
 
-* firefox-extension-builder
+## firefox-extension-builder
 
 Usage: <br>Description
 ---
 
-* full-path
+## full-path
 
 Usage: <br>Description
 ---
 
-* gtk2togtk3
+## gtk2togtk3
 
 Usage: <br>Description
 ---
 
-* hdmi-full-hd
+## hdmi-full-hd
 
 Usage: <br>Description
 ---
 
-* hdmi-toggle
+## hdmi-toggle
 
 Usage: <br>Description
 ---
 
-* hdmi-toggle-sound
+## hdmi-toggle-sound
 
 Usage: <br>Description
 ---
 
-* inkscape-open
+## inkscape-open
 
 Usage: <br>Description
 ---
 
-* insert-basic-getopt
+## insert-basic-getopt
 
 Usage: insert-basic-geopt [OPTION]... [FILE]...<br>Insert basic getopt sintax in all files in directory
 ---
 
-* install-theme
+## install-theme
 
 Usage: <br>Description
 ---
 
-* ip-public
+## ip-public
 
 Usage: <br>Description
 ---
 
-* irclog2html
+## irclog2html
 
 Usage: <br>Description
 ---
 
-* is-connected
+## is-connected
 
 Usage: <br>Description
 ---
 
-* javac-junit
+## javac-junit
 
 Usage: <br>Description
 ---
 
-* keep-alive
+## keep-alive
 
 Usage: <br>Description
 ---
 
-* last-screenshot-clipboard
+## last-screenshot-clipboard
 
 Usage: <br>Description
 ---
 
-* list-c++-projects
+## list-c++-projects
 
 Usage: <br>Description
 ---
 
-* make-gif
+## make-gif
 
 Usage: <br>Description
 ---
 
-* mako-db-update
+## mako-db-update
 
 Usage: <br>Description
 ---
 
-* mkisofs-
+## mkisofs-
 
 Usage: <br>Description
 ---
 
-* moc-generator
+## moc-generator
 
 Usage: <br>Description
 ---
 
-* mp42mp3
+## mp42mp3
 
 Usage: <br>Description
 ---
 
-* net-text-paste
+## net-text-paste
 
 Usage: <br>Description
 ---
 
-* no-full-hd
+## no-full-hd
 
 Usage: <br>Description
 ---
 
-* pa-list-sinks
+## pa-list-sinks
 
 Usage: <br>Description
 ---
 
-* pa-set-sink
+## pa-set-sink
 
 Usage: <br>Description
 ---
 
-* play-movie
+## play-movie
 
 Usage: <br>Description
 ---
 
-* play-music
+## play-music
 
 Usage: <br>Description
 ---
 
-* play-radio-index
+## play-radio-index
 
 Usage: <br>Description
 ---
 
-* play-radio-topfm
+## play-radio-topfm
 
 Usage: <br>Description
 ---
 
-* print-screen
+## print-screen
 
 Usage: <br>Description
 ---
 
-* progress-
+## progress-
 
 Usage: <br>Description
 ---
 
-* project-
+## project-
 
 Usage: <br>Description
 ---
 
-* python-init
+## python-init
 
 Usage: <br>Description
 ---
 
-* qt-class-reference
+## qt-class-reference
 
 Usage: <br>Description
 ---
 
-* README.md
+## README.md
 
 Documentation does not exist
 ---
 
-* record-screen
+## record-screen
 
 Usage: <br>Description
 ---
 
-* restart-x
+## restart-x
 
 Usage: <br>Description
 ---
 
-* restore-org
+## restore-org
 
 Usage: <br>Description
 ---
 
-* stamp-pdf
+## stamp-pdf
 
 Usage: <br>Description
 ---
 
-* start-x
+## start-x
 
 Usage: <br>Description
 ---
 
-* startx-awesome
+## startx-awesome
 
 Usage: <br>Description
 ---
 
-* startx-fluxbox
+## startx-fluxbox
 
 Usage: <br>Description
 ---
 
-* startx-fusion
+## startx-fusion
 
 Usage: <br>Description
 ---
 
-* statistics
+## statistics
 
 Usage: <br>Description
 ---
 
-* status-
+## status-
 
 Usage: <br>Description
 ---
 
-* tex2im
+## tex2im
 
 tex2im [options] inputfile
 ---
 
-* texi2pdf-clean
+## texi2pdf-clean
 
 Usage: <br>Description
 ---
 
-* timer-
+## timer-
 
 Usage: <br>Description
 ---
 
-* tmux-
+## tmux-
 
 Usage: <br>Description
 ---
 
-* toggle-kbdmap-de
+## toggle-kbdmap-de
 
 Usage: <br>Description
 ---
 
-* touch-bash
+## touch-bash
 
 Usage: <br>Description
 ---
 
-* touch-fantbuild
+## touch-fantbuild
 
 Usage: <br>Description
 ---
 
-* touch-java
+## touch-java
 
 Usage: <br>Description
 ---
 
-* touch-tex
+## touch-tex
 
 Usage: <br>Description
 ---
 
-* tweet-notifier
+## tweet-notifier
 
 Usage: <br>Description
 ---
 
-* txt2html
+## txt2html
 
 Usage: <br>Description
 ---
 
-* view-source
+## view-source
 
 Usage: <br>Description
 ---
 
-* without-comments
+## without-comments
 
 Usage: <br>Description
 ---
 
-* writepost
+## writepost
 
 Usage: <br>Description
 ---
 
-* youtube-get-song
+## youtube-get-song
 
 Usage: <br>Description
 ---
 
 
 
-_Generated: Mon Feb 14 01:11:38 AM CET 2022_
+_Generated: Mon Feb 14 01:13:09 AM CET 2022_
