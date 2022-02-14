@@ -28,7 +28,7 @@ function generated_documentation() {
 
         text="$( $file -h )"
         part_of_the_text=$( sed '/^$/q' <<< "$text" ) 
-        #part_of_the_text=${part_of_the_text//$'\n'/'<br>'}
+        part_of_the_text=${part_of_the_text//$'\n'/'<br>'}
 
         if [[ -z $part_of_the_text ]]; then
             echo "## $file_name" >> $OUTPUT_FILE_NAME
