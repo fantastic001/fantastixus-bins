@@ -5,257 +5,257 @@
 
 ## add-paper
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## all-possible-makefiles
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## android-project
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## backup-org
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## battery
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## check-kernel-version-last
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## create-html-table
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## create-so
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## create-ui
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## c++-task
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## c++-task-usaco
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## cut-media
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## dir-init
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## documentation-from-help-output
 
-Usage: documentation-from-help-output [OPTION]... [FILE]...<br>Generates documentation using --help output from scripts
+\Usage: documentation-from-help-output [OPTION]... [FILE]...<br>Generates documentation using --help output from scripts
 ---
 
 ## download-extract-archive
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## exportbin
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## firefox-dev
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## firefox-extension-builder
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## full-path
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## gtk2togtk3
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## hdmi-full-hd
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## hdmi-toggle
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## hdmi-toggle-sound
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## inkscape-open
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## insert-basic-getopt
 
-Usage: insert-basic-geopt [OPTION]... [FILE]...<br>Insert basic getopt sintax in all files in directory
+\Usage: insert-basic-geopt [OPTION]... [FILE]...<br>Insert basic getopt sintax in all files in directory
 ---
 
 ## install-theme
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## ip-public
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## irclog2html
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## is-connected
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## javac-junit
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## keep-alive
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## last-screenshot-clipboard
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## list-c++-projects
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## make-gif
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## mako-db-update
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## mkisofs-
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## moc-generator
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## mp42mp3
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## net-text-paste
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## no-full-hd
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## pa-list-sinks
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## pa-set-sink
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## play-movie
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## play-music
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## play-radio-index
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## play-radio-topfm
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## print-screen
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## progress-
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## project-
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## python-init
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## qt-class-reference
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## README.md
@@ -265,129 +265,129 @@ Documentation does not exist
 
 ## record-screen
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## restart-x
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## restore-org
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## stamp-pdf
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## start-x
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## startx-awesome
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## startx-fluxbox
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## startx-fusion
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## statistics
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## status-
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## tex2im
 
-tex2im [options] inputfile
+\tex2im [options] inputfile
 ---
 
 ## texi2pdf-clean
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## timer-
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## tmux-
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## toggle-kbdmap-de
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## touch-bash
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## touch-fantbuild
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## touch-java
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## touch-tex
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## tweet-notifier
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## txt2html
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## view-source
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## without-comments
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## writepost
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 ## youtube-get-song
 
-Usage: <br>Description
+\Usage: <br>Description
 ---
 
 
 
-_Generated: Mon Feb 14 01:14:25 AM CET 2022_
+_Generated: Mon Feb 14 01:16:37 AM CET 2022_
