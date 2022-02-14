@@ -38,7 +38,7 @@ function generated_documentation() {
         else
             echo "## $file_name" >> $OUTPUT_FILE_NAME
             echo "" >> $OUTPUT_FILE_NAME
-            echo $part_of_the_text >> $OUTPUT_FILE_NAME
+            echo "$part_of_the_text" >> $OUTPUT_FILE_NAME
             echo "---" >> $OUTPUT_FILE_NAME
             echo "" >> $OUTPUT_FILE_NAME
         fi
