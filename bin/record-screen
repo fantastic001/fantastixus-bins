@@ -1,7 +1,7 @@
 #!/bin/sh
 
 SHORTOPTS=":ho:r:"
-LONGOPTS="help"
+LONGOPTS="help,output-file:,resolution:"
 OPTS=$(getopt -o $SHORTOPTS --longoptions $LONGOPTS -n "$0" -- "$@")
 eval set -- "$OPTS"
 

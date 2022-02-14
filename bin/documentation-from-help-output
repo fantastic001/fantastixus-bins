@@ -28,7 +28,7 @@ function generated_documentation() {
 
         if [[ $( grep -q "#!/bin/sh" $file ) -ne 0 || $( grep -q "#!/bin/bash" $file ) -ne 0 ]]; then 
             echo "* $file" >> $OUTPUT_FILE_NAME
-            echo "<br>" >> $OUTPUT_FILE_NAME
+            echo "" >> $OUTPUT_FILE_NAME
             echo "Documentation does not exist" >> $OUTPUT_FILE_NAME
             echo "---" >> $OUTPUT_FILE_NAME
             continue
@@ -103,11 +103,7 @@ if [[ -z "$DIR_WITH_SCRIPTS" ]]; then
 fi
 
 if [[ -z "$OUTPUT_FILE_NAME" ]]; then
-<<<<<<< HEAD
     OUTPUT_FILE_NAME="./README-"$(date)".md"
-=======
-    OUTPUT_FILE_NAME="README-"$(date)".md"
->>>>>>> 2825a02 (rebase from master and fixed heop in record-screen)
 fi
 
 header

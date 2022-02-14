@@ -173,6 +173,11 @@ Usage: <br>Description
 Usage: <br>Description
 ---
 
+## mako-
+
+Usage: <br>Description
+---
+
 ## mako-db-update
 
 Usage: <br>Description
@@ -260,7 +265,7 @@ Usage: <br>Description
 
 ## record-screen
 
-Usage: <br>Description
+Usage: record-screen [OPTION]... [FILE]...<br>Script for starting ffmpeg with options optimised for screen recording
 ---
 
 ## restart-x
@@ -385,4 +390,4 @@ Usage: <br>Description
 
 
 
-_Generated: Mon Feb 14 01:24:49 AM CET 2022_
+_Generated: Mon Feb 14 02:13:47 AM CET 2022_

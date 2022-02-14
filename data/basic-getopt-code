@@ -1,3 +1,9 @@
+# In the firts row usage needs to be added in format: script name [OPTION]... [FILE]
+# Description from the second row should be replaced with actual description
+# Third row needs to be left blank
+# Each following row shold contain description of options in format:
+#   -short option, --long-option \t description
+
 
 SHORTOPTS=":h"
 LONGOPTS="help"
