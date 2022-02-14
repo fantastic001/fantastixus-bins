@@ -30,17 +30,17 @@ function generated_documentation() {
 
         if [[ -z $part_of_the_text ]]; then
             echo "* $file_name" >> $OUTPUT_FILE_NAME
-            echo "<br>" >> $OUTPUT_FILE_NAME
+            echo "" >> $OUTPUT_FILE_NAME
             echo "Documentation does not exist" >> $OUTPUT_FILE_NAME
             echo "---" >> $OUTPUT_FILE_NAME
-            echo "<br>" >> $OUTPUT_FILE_NAME
+            echo "" >> $OUTPUT_FILE_NAME
 
         else
             echo "* $file_name" >> $OUTPUT_FILE_NAME
-            echo "<br>" >> $OUTPUT_FILE_NAME
+            echo "" >> $OUTPUT_FILE_NAME
             echo $part_of_the_text >> $OUTPUT_FILE_NAME
             echo "---" >> $OUTPUT_FILE_NAME
-            echo "<br>" >> $OUTPUT_FILE_NAME
+            echo "" >> $OUTPUT_FILE_NAME
         fi
     done
 }
