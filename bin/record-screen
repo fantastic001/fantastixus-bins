@@ -39,6 +39,7 @@ done
 OUTPUT=""
 RESOLUTION=""
 
+
 if [[ -z $OUTPUT ]]; then
 	OUTPUT=output.mp4
 fi
