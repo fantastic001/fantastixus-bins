@@ -1,29 +1,5 @@
 #!/bin/sh
 
-SHORTOPTS=":h"
-LONGOPTS="help"
-OPTS=$(getopt -o $SHORTOPTS --longoptions $LONGOPTS -n "$0" -- "$@")
-eval set -- "$OPTS"
-
-while [ $# -gt 0 ]; do
-    case $1 in
-        -h|--help)
-            echo "Usage: "
-            echo "Description"
-            echo 
-            #list of options following
-            echo -e "-h \t print this message"
-        	exit 0
-        ;;
-        --)
-           shift
-           break
-        ;;
-
-    esac
-    shift
-done
-
 if [ -z "$1" ]; then 
 	echo "Usage $0 filename" 
 fi

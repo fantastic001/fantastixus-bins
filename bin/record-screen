@@ -39,38 +39,6 @@ done
 OUTPUT=""
 RESOLUTION=""
 
-<<<<<<< HEAD
-=======
-while getopts :ho:r: OPTION; do
-	case $OPTION in 
-		h)
-			print_usage
-			exit 0
-			;;
-		o)
-			OUTPUT="$OPTARG"
-			;;
-		r)
-			RESOLUTION="$OPTARG"			
-			;;
-		
-		*)
-			echo "Invalid option"
-			print_usage
-			exit 1
-			;;
-
-	esac
-done
-
-<<<<<<< HEAD
->>>>>>> 811b066 (added parameter for record-screen scirpt)
-=======
-
-OUTPUT=""
-RESOLUTION=""
-
->>>>>>> 54ef2d0 (rebase from master and fixed heop in record-screen)
 if [[ -z $OUTPUT ]]; then
 	OUTPUT=output.mp4
 fi

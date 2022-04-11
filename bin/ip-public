@@ -1,28 +1,4 @@
 #!/bin/bash 
 
-SHORTOPTS=":h"
-LONGOPTS="help"
-OPTS=$(getopt -o $SHORTOPTS --longoptions $LONGOPTS -n "$0" -- "$@")
-eval set -- "$OPTS"
-
-while [ $# -gt 0 ]; do
-    case $1 in
-        -h|--help)
-            echo "Usage: "
-            echo "Description"
-            echo 
-            #list of options following
-            echo -e "-h \t print this message"
-        	exit 0
-        ;;
-        --)
-           shift
-           break
-        ;;
-
-    esac
-    shift
-done
-
 lynx --dump http://www.whatismyip.com/ | egrep "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+" | awk "NR==1" | awk '{print $1}' 
 #lynx --dump http://www.123myip.co.uk/ | grep -A 2 "Your IP address is:" | sed "/      Your IP address is:/,+1d" | sed "s/   //g"
