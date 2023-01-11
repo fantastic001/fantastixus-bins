@@ -4,5 +4,6 @@ SS_FILE="/data/Graphics, photography and design/Pictures/Screenshots/$(date +%Y-
 import "$SS_FILE"
 rm -rf ~/ss.png 
 ln -s "$SS_FILE" ~/ss.png
+xclip -selection clipboard -t image/png -i ss.png
 #notify-send -u low "Upload ~/ss.png to the prntscr.com or something like that. " 
 #firefox http://prntscr.com
