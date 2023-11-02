@@ -4,7 +4,7 @@ cd /data
 
 TARBALL_NAME="org-backup-$(date +%Y-%m-%d-%H-%M).tar.gz"
 
-tar -cvf $TARBALL_NAME Documents/About\ Me/ Documents/Finance/ Documents/Notes
+tar -cvf $TARBALL_NAME Documents/About\ Me/ Documents/Finance/ Documents/Notes jira-*.zip
 
 gpg -c $TARBALL_NAME
 
