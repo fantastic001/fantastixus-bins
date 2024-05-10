@@ -58,6 +58,13 @@ start_x() {
 	~/.local/bin/commander.sh &
 
 
+	if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+		for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+			[ -x "$f" ] && . "$f"
+		done
+		unset f
+	fi
+
 	#Start your own window manager
 	#if [ ! -z $(which awesome 2>/dev/null) ] 
 	#then 
