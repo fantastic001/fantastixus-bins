@@ -1,5 +1,0 @@
-#!/bin/bash
-
-wgetpaste "$1" | xclip -selection clipboard
-
-echo "Your paste is moved to clipboard"

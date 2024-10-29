@@ -1,7 +1,0 @@
-#!/bin/sh
-
-
-mkdir -p ~/.logs/
-echo "mako $*" >> ~/.logs/mako.log
-
-mako $*
