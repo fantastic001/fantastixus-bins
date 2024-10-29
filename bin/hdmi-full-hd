@@ -1,5 +1,0 @@
-#!/bin/sh
-xrandr --output LVDS1 --auto --output HDMI1 --same-as LVDS1
-xrandr --output HDMI1 --mode 1920x1080
-feh --bg-scale Desktop/bg.jpg
-
