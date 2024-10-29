@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# print execution 
+set -x
+
+if [ "$#" -ne 3 ]; then
+    echo "Usage: $0 <json_file> <input_doc> <output_pdf>"
+    exit 1
+fi
+
+if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+    echo "Usage: $0 <json_file> <input_doc> <output_pdf>"
+    echo "Fill fields in an ODT document with values from a JSON file and export to PDF"
+    exit 0
+fi
+
+if ! command -v jq &> /dev/null; then
+    echo "jq is required to parse JSON data. Install it using 'sudo apt install jq'"
+    exit 1
+fi
+
+if ! command -v soffice &> /dev/null; then
+    echo "LibreOffice is required to convert documents. Install it using 'sudo apt install libreoffice'"
+    exit 1
+fi
+
+# Paths
+json_file="$1"
+input_doc="$2"
+output_pdf="$3"
+
+# Function to replace fields with values from JSON data
+fill_fields_in_document() {
+    local temp_doc="$1"
+    
+    # Copy original document to temporary file
+    cp "$input_doc" "$temp_doc"
+    
+    # Loop through JSON keys and replace values in the document
+    jq -r 'to_entries | .[] | "\(.key)=\(.value)"' "$json_file" | while IFS="=" read -r field_name field_value; do
+        cp "$input_doc" "$temp_doc"
+        # # Find and replace field in the document
+        unzip -p "$temp_doc" content.xml | sed "s|<text:user-field-get text:name=\"$field_name\">.*</text:user-field-get>|$field_value|g" > /tmp/content.xml
+        
+        zip -d "$temp_doc" content.xml
+        mv /tmp/content.xml content.xml
+        zip -u "$temp_doc" content.xml
+        rm content.xml
+    done
+    
+}
+
+temp_doc="/tmp/$(basename "$input_doc")"
+
+# Fill the fields
+fill_fields_in_document "$temp_doc"
+
+# Export to PDF
+soffice --headless --convert-to pdf "$temp_doc" --outdir "$(dirname "$output_pdf")"
+
+# Rename the output file to desired name
+mv "$(dirname "$output_pdf")/$(basename "$temp_doc" .odt).pdf" "$output_pdf"
+
+echo "Document exported to $output_pdf"
