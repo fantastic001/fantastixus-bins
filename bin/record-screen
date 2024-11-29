@@ -1,38 +1,43 @@
 #!/bin/sh
 
-function print_usage () {
+SHORTOPTS=":ho:r:"
+LONGOPTS="help,output-file:,resolution:"
+OPTS=$(getopt -o $SHORTOPTS --longoptions $LONGOPTS -n "$0" -- "$@")
+eval set -- "$OPTS"
 
-			echo "Script for starting ffmpeg with options optimised for screen recording"
-			echo "If there are no arguments, default options will be used"
-			echo -e "-o \t define output file"
-			echo -e "-r \t define screen resolution (eg. '1920x1080') "
+while [ $# -gt 0 ]; do
+    case $1 in
+        -h|--help)
+            echo "Usage: record-screen [OPTION]... [FILE]..."
+            echo "Script for starting ffmpeg with options optimised for screen recording"
+            echo 
+            #list of options following
+            echo -e "-o, --output-file \t define output file"
+			echo -e "-r, --resolution \t define screen resolution (eg. '1920x1080') "
+            echo -e "-h, --help \t print this message"
+        	exit 0
+        ;;
 
-}
+        o|--output-file)
+			OUTPUT="$OPTARG"
+			;;
+
+		r|--resolution)
+			RESOLUTION="$OPTARG"			
+			;;
+
+        --)
+           shift
+           break
+        ;;
+
+    esac
+    shift
+done
+
 
 OUTPUT=""
 RESOLUTION=""
-
-while getopts :ho:r: OPTION; do
-	case $OPTION in 
-		h)
-			print_usage
-			exit 0
-			;;
-		o)
-			OUTPUT="$OPTARG"
-			;;
-		r)
-			RESOLUTION="$OPTARG"			
-			;;
-		
-		*)
-			echo "Invalid option"
-			print_usage
-			exit 1
-			;;
-
-	esac
-done
 
 
 if [[ -z $OUTPUT ]]; then
