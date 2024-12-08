@@ -1,4 +1,15 @@
-#!/bin/bash 
+#!/bin/bash
 
-lynx --dump http://www.whatismyip.com/ | egrep "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+" | awk "NR==1" | awk '{print $1}' 
-#lynx --dump http://www.123myip.co.uk/ | grep -A 2 "Your IP address is:" | sed "/      Your IP address is:/,+1d" | sed "s/   //g"
+# Define the URL for the jsonip API
+URL="https://jsonip.com/"
+
+# Fetch the public IP address using curl and parse the JSON output with jq
+PUBLIC_IP=$(curl -s "$URL" | jq -r '.ip')
+
+if [ -n "$PUBLIC_IP" ]; then
+    echo "$PUBLIC_IP"
+    exit 0 
+else
+    echo "Could not retrieve your public IP address."
+    exit 1
+fi

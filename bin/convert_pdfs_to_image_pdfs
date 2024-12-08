@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Ensure the required tools are installed
+if ! command -v gs &> /dev/null || ! command -v convert &> /dev/null
+then
+    echo "Error: This script requires Ghostscript (gs) and ImageMagick (convert) to be installed."
+    exit 1
+fi
+
+# Check if folder is provided
+if [ -z "$1" ]
+then
+    echo "Usage: $0 /path/to/folder"
+    exit 1
+fi
+
+# Create output folder for converted PDFs
+output_folder="$1/converted_pdfs"
+mkdir -p "$output_folder"
+
+# Iterate over all PDFs in the given folder
+for pdf in "$1"/*.pdf
+do
+    if [ -f "$pdf" ]; then
+        base_name=$(basename "$pdf" .pdf)
+        output_pdf="$output_folder/${base_name}_converted.pdf"
+
+        # Create a temporary folder for image pages
+        temp_dir=$(mktemp -d)
+
+        # Convert each page of the PDF to an image (e.g., PNG)
+        echo "Processing $pdf..."
+        gs -dNOPAUSE -dBATCH -sDEVICE=pngalpha -r150 -sOutputFile="$temp_dir/page-%03d.png" "$pdf"
+
+        # Combine the images back into a PDF where each page is now an image
+        convert "$temp_dir/page-*.png" "$output_pdf"
+
+        # Clean up the temporary image files
+        rm -rf "$temp_dir"
+
+        echo "Converted $pdf to $output_pdf"
+    fi
+done
+
+echo "All PDFs have been converted to image PDFs in $output_folder"

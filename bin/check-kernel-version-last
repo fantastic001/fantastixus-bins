@@ -1,3 +1,0 @@
-#!/bin/sh 
-
-lynx --dump ftp://ftp.kernel.org/pub/linux/kernel/v3.x/ | grep ftp:// | grep ".*/linux-.*.xz$" | sed "s/.*-\([0-9].*\).tar.xz/\1/g" | sort | tail -1
