@@ -64,6 +64,8 @@ start_x() {
 		done
 		unset f
 	fi
+	
+	nm-applet & 
 
 	#Start your own window manager
 	#if [ ! -z $(which awesome 2>/dev/null) ] 
