@@ -1,8 +1,9 @@
 #!/bin/bash 
 
 awk '
-BEGIN 
-    {print "ncalls,tottime,percall,cumtime,percall,filename_lineno_function"} 
+BEGIN {
+    print "ncalls,tottime,percall,cumtime,percall,filename_lineno_function"
+} 
 NR > 1 {
     if (NF < 6) next;  # Skip rows with fewer than 6 fields
     # Process the first 5 fields
