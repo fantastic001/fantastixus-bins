@@ -1,0 +1,45 @@
+#!/bin/bash 
+
+usage() {
+    echo "Usage: $0 pdf1 pdf2 ... output_pdf"
+    exit 1
+}
+
+
+
+# print usage if --help or -h is passed as an argument
+if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
+    usage
+fi
+
+if [ $# -lt 3 ]; then
+    usage
+fi
+
+
+arg_num=$#
+output_pdf="${!arg_num}"
+pdf_files=""
+
+echo "Arguments:"
+for (( i=1; i<$arg_num; i++ )); do
+    echo "  $i: ${!i}"
+done
+
+for (( i=1; i<$arg_num; i++ )); do
+    pdf_files="$pdf_files \"${!i}\""
+done
+
+echo "Output pdf file: $output_pdf"
+echo $pdf_files
+
+input_tmp_dir=/tmp/pdfmerge-$(date +%s)
+mkdir -p $input_tmp_dir
+
+
+for (( i=1; i<$arg_num; i++ )); do
+    cp "${!i}" $input_tmp_dir/$i.pdf
+done
+
+pdfunite $input_tmp_dir/*.pdf $output_pdf
+rm -rf $input_tmp_dir
