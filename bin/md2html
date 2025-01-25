@@ -1,0 +1,27 @@
+#!/bin/bash 
+
+convert_markdown_to_html() {
+    local markdown_file="$1"
+    local html_file="$2"
+    pandoc -f markdown -t html "$markdown_file" -o "$html_file"
+}
+
+usage() {
+    echo "Usage: $0 <markdown_file> <html_file>"
+    exit 1
+}   
+
+if [ $# -ne 2 ]; then
+    usage
+fi 
+
+if [ ! -f "$1" ]; then
+    echo "Error: $1 not found."
+    usage
+fi
+
+if [ "$1" = "--help" ]; then
+    usage
+fi
+
+convert_markdown_to_html "$1" "$2"
