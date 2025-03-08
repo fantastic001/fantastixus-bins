@@ -1,0 +1,138 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+############################################
+# Usage: ./convert_org_to_readme.sh /path/to/input /path/to/output
+# 
+# 1) Recursively scan INPUT_DIR.
+# 2) If a directory has at least one .org file at its own level:
+#    - replicate that directory structure in OUTPUT_DIR (excluding .org files),
+#    - convert each .org in that directory to README.md,
+#    - recurse into subdirectories.
+# 3) Adds a progress bar tracking the number of .org files converted.
+############################################
+
+
+if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
+  echo "Usage: $0 <INPUT_DIR> <OUTPUT_DIR>"
+  echo "Recursively convert .org files in INPUT_DIR to README.md in OUTPUT_DIR."
+  cat <<EOF
+
+Before using this script, make sure your orgfiles are correct in terms of latex escapes:
+
+wrong_lines = [i for i, line in enumerate(open("notes.org").readlines()) if len([x for x,y in zip(line[:-1], line[1:]) if x == "$" and y == "$"]) % 2 != 0 ]
+
+Fix these lines and run script. 
+
+You will also need to fix manually some latex equations, use find and replace:
+
+^\\\$\\\$ +([^\\\$]+) \\\$\\\$([^\\\$]+)
+\$\$\$1\$\$ \$2
+
+([^\\\$]+)\\\$\\\$ +([^\\\$]+) \\\$\\\$
+\$1 \$\$\$2\$\$
+
+
+
+EOF
+
+  exit 0
+fi
+if [[ $# -ne 2 ]]; then
+  echo "Usage: $0 <INPUT_DIR> <OUTPUT_DIR>"
+  exit 1
+fi
+
+INPUT_DIR="$1"
+OUTPUT_DIR="$2"
+mkdir -p "$OUTPUT_DIR"
+
+# -----------------------------------------------------------------------------
+# 1) Count total number of .org files under INPUT_DIR
+#    This will let us display a progress bar as we convert them.
+# -----------------------------------------------------------------------------
+mapfile -t ORG_FILES < <(find "$INPUT_DIR" -type f -name '*.org')
+TOTAL_ORG_COUNT="${#ORG_FILES[@]}"
+CURRENT_COUNT=0
+
+# -----------------------------------------------------------------------------
+# 2) Define a function to display a simple progress bar
+#    based on CURRENT_COUNT and TOTAL_ORG_COUNT.
+# -----------------------------------------------------------------------------
+print_progress() {
+  local current="$1"
+  local total="$2"
+
+  local bar_width=50
+  local filled=$(( current * bar_width / total ))
+  local empty=$(( bar_width - filled ))
+  
+  # Build the bar strings
+  local bar_filled="$(printf "%${filled}s" | tr ' ' '#')"
+  local bar_empty="$(printf "%${empty}s" | tr ' ' '-')"
+  
+  local percent=$(( current * 100 / total ))
+  
+  # Print progress bar on one line, overwriting it each time (\r)
+  printf "\rProgress: [%s%s] %d%% (%d/%d)" \
+         "$bar_filled" "$bar_empty" "$percent" "$current" "$total"
+}
+
+# -----------------------------------------------------------------------------
+# 3) Define the recursive function that processes each directory.
+# -----------------------------------------------------------------------------
+process_dir() {
+  local dir="$1"
+  # Remove trailing slash if any
+  dir="${dir%/}"
+
+  # Compute path relative to INPUT_DIR
+  local rel_path="${dir#$INPUT_DIR}"
+
+  # Check if this directory has at least one .org file at top level
+  local org_count
+  org_count=$(find "$dir" -maxdepth 1 -type f -name '*.org' | wc -l)
+
+  # If no .org files at this level, skip replicating
+  if [[ "$org_count" -eq 0 ]]; then
+    return
+  fi
+
+  # If .org files exist, replicate directory (excluding .org files)
+  mkdir -p "$OUTPUT_DIR/$rel_path"
+  rsync -a --exclude='*.org' "$dir"/ "$OUTPUT_DIR/$rel_path"/
+
+  # Convert each .org file in this directory to README.md
+  for org_file in "$dir"/*.org; do
+    [[ -f "$org_file" ]] || continue  # skip if glob didn't match
+    local out_file="$OUTPUT_DIR/$rel_path/README.md"
+
+    pandoc -f org -t markdown -o "$out_file" "$org_file"
+
+    # Update the progress bar
+    CURRENT_COUNT=$((CURRENT_COUNT + 1))
+    print_progress "$CURRENT_COUNT" "$TOTAL_ORG_COUNT"
+  done
+
+  # Recurse into subdirectories
+  for subdir in "$dir"/*; do
+    [[ -d "$subdir" ]] || continue
+    process_dir "$subdir"
+  done
+}
+
+# -----------------------------------------------------------------------------
+# 4) Run the recursion starting at INPUT_DIR
+# -----------------------------------------------------------------------------
+if [[ "$TOTAL_ORG_COUNT" -gt 0 ]]; then
+  echo "Found $TOTAL_ORG_COUNT Org file(s). Starting conversion..."
+else
+  echo "No .org files found in $INPUT_DIR. Nothing to convert."
+  exit 0
+fi
+
+process_dir "$INPUT_DIR"
+
+# Print a newline after finishing progress bar
+echo
+echo "Done! Converted Org files to README.md where needed."
