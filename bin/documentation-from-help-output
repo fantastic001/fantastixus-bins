@@ -1,0 +1,113 @@
+#!/bin/bash
+
+IFS=''
+
+function header() {
+    echo "# Automaticaly generated documentation for scripts in $DIR_WITH_SCRIPTS" > $OUTPUT_FILE_NAME
+    echo >> $OUTPUT_FILE_NAME
+    echo "**Following is a list of scripts with their --help output**" >> $OUTPUT_FILE_NAME
+    echo >> $OUTPUT_FILE_NAME
+    echo >> $OUTPUT_FILE_NAME
+}
+
+function footer() {
+    echo >> $OUTPUT_FILE_NAME
+    echo >> $OUTPUT_FILE_NAME
+    echo "_Generated: "$(date)"_" >> $OUTPUT_FILE_NAME
+}
+
+function generated_documentation() {
+
+    for file in "$DIR_WITH_SCRIPTS"/* ; do
+        
+        file_name="$( basename "$file" )"
+
+        if [[ "$file" == "$OUTPUT_FILE_NAME" ]] || [[ "$file_name" == "$OUTPUT_FILE_NAME" ]] || [[ "$file_name" == "data-usage" ]]; then
+            continue
+        fi
+
+        if [[ $( grep -q "#!/bin/sh" $file ) -ne 0 || $( grep -q "#!/bin/bash" $file ) -ne 0 ]]; then 
+            echo "* $file" >> $OUTPUT_FILE_NAME
+            echo "" >> $OUTPUT_FILE_NAME
+            echo "Documentation does not exist" >> $OUTPUT_FILE_NAME
+            echo "---" >> $OUTPUT_FILE_NAME
+            continue
+        fi
+
+        text="$( $file -h )"
+        part_of_the_text=$( sed '/^$/q' <<< "$text" ) 
+        part_of_the_text=${part_of_the_text//$'\n'/'<br>'}
+
+        if [[ -z $part_of_the_text ]]; then
+            echo "## $file_name" >> $OUTPUT_FILE_NAME
+            echo "" >> $OUTPUT_FILE_NAME
+            echo "Documentation does not exist" >> $OUTPUT_FILE_NAME
+            echo "---" >> $OUTPUT_FILE_NAME
+            echo "" >> $OUTPUT_FILE_NAME
+
+        else
+            echo "## $file_name" >> $OUTPUT_FILE_NAME
+            echo "" >> $OUTPUT_FILE_NAME
+            echo "$part_of_the_text" >> $OUTPUT_FILE_NAME
+            echo "---" >> $OUTPUT_FILE_NAME
+            echo "" >> $OUTPUT_FILE_NAME
+        fi
+    done
+}
+
+DIR_WITH_SCRIPTS=""
+FUNCTION_NAME=""
+OUTPUT_FILE_NAME=""
+
+
+SHORTOPTS=":hp:o:"
+LONGOPTS="help,path:,output-file:"
+OPTS=$(getopt -o $SHORTOPTS --longoptions $LONGOPTS -n "$0" -- "$@")
+eval set -- "$OPTS"
+
+while [ $# -gt 0 ]; do
+    case $1 in
+        -h|--help)
+            echo "Usage: documentation-from-help-output [OPTION]... [FILE]..."
+            echo "Generates documentation using --help output from scripts"
+            echo 
+        	echo "If there are no arguments, default options will be used"
+        	echo -e "-o, --output-file \t Define path to output file (default is README-"
+        	echo -e "-p, --path \t define path to directory to be executed on (default is current directory)"
+            echo -e "-h \t print this message"
+        	exit 0
+        ;;
+
+        -o|--output-file)
+            shift
+            OUTPUT_FILE_NAME="$1"
+        ;;
+
+        -p|--path)
+            shift
+            DIR_WITH_SCRIPTS="$1"
+        ;;
+        --)
+           shift
+           break
+        ;;
+
+    esac
+    shift
+done
+
+
+
+if [[ -z "$DIR_WITH_SCRIPTS" ]]; then
+    DIR_WITH_SCRIPTS="."
+fi
+
+if [[ -z "$OUTPUT_FILE_NAME" ]]; then
+    OUTPUT_FILE_NAME="./README-"$(date)".md"
+fi
+
+header
+generated_documentation
+footer
+
+unset IFS
